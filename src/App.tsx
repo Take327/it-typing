@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import Container from '@material-ui/core/Container';
-import { CssBaseline } from '@material-ui/core';
+import { CssBaseline, Paper } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
 
 import Keybord from './components/keyboard/Keyboard'
