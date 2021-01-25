@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
+import './KeyButton.css';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -45,8 +45,15 @@ const useStyles = makeStyles((theme: Theme) =>
             textAlign: 'center',
             color: theme.palette.text.secondary,
             height: '40px',
-            width: '50px'
+            width: '65px'
         },
+        enter:{
+            padding: theme.spacing(2),
+            textAlign: 'center',
+            color: theme.palette.text.secondary,
+            height: '90px',
+            width: '90px'
+        }
     }),
 );
 
@@ -76,7 +83,8 @@ const KeyButtonNormal: React.FC<Props> = ({ keyValue }) => {
             case 'ctrl':
                 return <Paper className={classes.ctrl}>{keyValue}</Paper>
 
-
+            case 'enter':
+                return <Paper className={classes.enter}>{keyValue}</Paper>
 
             default:
                 return <Paper className={classes.paper}>{keyValue}</Paper>
@@ -84,7 +92,7 @@ const KeyButtonNormal: React.FC<Props> = ({ keyValue }) => {
     }
 
     return (
-        <div>
+        <div className="key_button">
             {keyHandle(keyValue)}
         </div>
     )

@@ -1,0 +1,16 @@
+.key_line {
+    width: min-content;
+    display: flex;
+    justify-content: center;
+}
+
+.enter_area{
+    display: flex;
+
+}
+
+.enter_lines {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
