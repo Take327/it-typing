@@ -4,10 +4,6 @@ import './KeyLine.css';
 
 type KeyLineValues = string[]
 
-const keyLineValues: KeyLineValues = [
-
-]
-
 const fastLineValue: KeyLineValues = ["", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "^", "\\", "caps"];
 const secondLineValue: KeyLineValues = ["tab", "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "@", "["];
 const thirdLineValue: KeyLineValues = ["caps", "A", "S", "D", "F", "G", "H", "J", "K", "L", ";", ":", "]"];

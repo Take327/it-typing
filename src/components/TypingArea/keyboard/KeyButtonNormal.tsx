@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import './KeyButton.css';
@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme: Theme) =>
             height: '40px',
             width: '65px'
         },
-        enter:{
+        enter: {
             padding: theme.spacing(2),
             textAlign: 'center',
             color: theme.palette.text.secondary,
@@ -56,6 +56,10 @@ const useStyles = makeStyles((theme: Theme) =>
         }
     }),
 );
+
+const keyDownEventActionHandle = (event: any) => {
+    console.log(event);
+}
 
 
 
@@ -92,7 +96,7 @@ const KeyButtonNormal: React.FC<Props> = ({ keyValue }) => {
     }
 
     return (
-        <div className="key_button">
+        <div className="key_button" onKeyPress={(e) => keyDownEventActionHandle(e)}>
             {keyHandle(keyValue)}
         </div>
     )

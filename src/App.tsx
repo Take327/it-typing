@@ -1,10 +1,11 @@
 import React from 'react';
 import './App.css';
 import Container from '@material-ui/core/Container';
-import { CssBaseline, Paper } from '@material-ui/core';
-import { Typography } from '@material-ui/core';
+import { CssBaseline, Typography } from '@material-ui/core';
+import Keybord from './components/TypingArea/keyboard/Keyboard';
 
-import Keybord from './components/keyboard/Keyboard'
+
+
 
 
 const App: React.FC = () => {
