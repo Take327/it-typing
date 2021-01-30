@@ -1,15 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import './KeyButton.css';
-
-
-
-const keyDownEventActionHandle = (event: any) => {
-    console.log(event);
-}
-
-
 
 type Props = {
     keyValue: string
@@ -17,6 +9,9 @@ type Props = {
 
 const KeyButtonNormal: React.FC<Props> = ({ keyValue }) => {
     const [backGroundColor, setBackGroundColor] = useState('#FFF');
+    const [keyValueUtil, setKeyValueUtil] = useState(keyValue);
+
+
 
     const useStyles = makeStyles((theme: Theme) =>
         createStyles({
@@ -26,7 +21,7 @@ const KeyButtonNormal: React.FC<Props> = ({ keyValue }) => {
                 color: theme.palette.text.secondary,
                 height: '40px',
                 width: '40px',
-                backgroundColor: backGroundColor
+                backgroundColor: '#FFF'
 
             },
             shift: {
@@ -76,7 +71,7 @@ const KeyButtonNormal: React.FC<Props> = ({ keyValue }) => {
     const classes = useStyles();
 
     const handleChange = () => {
- 
+
 
         console.log('a');
         setBackGroundColor('#81d8d0');
@@ -103,7 +98,7 @@ const KeyButtonNormal: React.FC<Props> = ({ keyValue }) => {
                 return <Paper className={classes.enter}>{keyValue}</Paper>
 
             default:
-                return <Paper className={classes.paper}>{keyValue}</Paper>
+                return <Paper id={keyValue + '_button'} className={classes.paper}>{keyValue}</Paper>
         }
     }
 
