@@ -8,7 +8,7 @@ const Keyboard: React.FC = () => {
 
     useEffect(() => {
         document.onkeydown = (event) => {
-            const targetId = event.key + '_button';
+            const targetId = event.keyCode + '_button';
             const target = document.getElementById(targetId);
             if (target) {
                 console.log(target);
@@ -16,7 +16,7 @@ const Keyboard: React.FC = () => {
             }
         }
         document.onkeyup = (event) => {
-            const targetId = event.key + '_button';
+            const targetId = event.keyCode + '_button';
             const target = document.getElementById(targetId);
             if (target) {
                 console.log(target);

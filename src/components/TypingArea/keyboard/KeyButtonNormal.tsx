@@ -4,13 +4,19 @@ import Paper from '@material-ui/core/Paper';
 import './KeyButton.css';
 
 type Props = {
+    keyObject: {
+        keyCode: string,
+        keyValue: string
+    }
+}
+
+type KeyObject = {
+    keyCode: string,
     keyValue: string
 }
 
-const KeyButtonNormal: React.FC<Props> = ({ keyValue }) => {
+const KeyButtonNormal: React.FC<Props> = ({ keyObject }) => {
     const [backGroundColor, setBackGroundColor] = useState('#FFF');
-    const [keyValueUtil, setKeyValueUtil] = useState(keyValue);
-
 
 
     const useStyles = makeStyles((theme: Theme) =>
@@ -77,34 +83,36 @@ const KeyButtonNormal: React.FC<Props> = ({ keyValue }) => {
         setBackGroundColor('#81d8d0');
     }
 
-    const keyHandle = (keyValue: string) => {
-        switch (keyValue) {
+    const keyHandle = (keyObject: KeyObject) => {
+        const code = keyObject.keyCode;
+        const value = keyObject.keyValue
+        switch (value) {
             case 'shift':
-                return <Paper className={classes.shift}>{keyValue}</Paper>
+                return <Paper id={code + '_button'} className={classes.shift}>{value}</Paper>
 
-            case 'tab':
-                return <Paper className={classes.tab}>{keyValue}</Paper>
+            case 'Tab':
+                return <Paper id={code + '_button'} className={classes.tab}>{value}</Paper>
 
             case 'space':
-                return <Paper className={classes.space}>{keyValue}</Paper>
+                return <Paper id={code + '_button'} className={classes.space}>{value}</Paper>
 
             case 'caps':
-                return <Paper className={classes.caps}>{keyValue}</Paper>
+                return <Paper id={code + '_button'} className={classes.caps}>{value}</Paper>
 
             case 'ctrl':
-                return <Paper className={classes.ctrl}>{keyValue}</Paper>
+                return <Paper id={code + '_button'} className={classes.ctrl}>{value}</Paper>
 
-            case 'enter':
-                return <Paper className={classes.enter}>{keyValue}</Paper>
+            case 'Enter':
+                return <Paper id={code + '_button'} className={classes.enter}>{value}</Paper>
 
             default:
-                return <Paper id={keyValue + '_button'} className={classes.paper}>{keyValue}</Paper>
+                return <Paper id={code + '_button'} className={classes.paper}>{value}</Paper>
         }
     }
 
     return (
         <div className="key_button" onClick={(e) => handleChange()}>
-            {keyHandle(keyValue)}
+            {keyHandle(keyObject)}
         </div>
     )
 }
