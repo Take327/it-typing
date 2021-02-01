@@ -3,15 +3,12 @@ import KeyLine from './KeyLine';
 import './Keyboard.css';
 
 const Keyboard: React.FC = () => {
-    const [key, setKey] = useState('');
-
 
     useEffect(() => {
         document.onkeydown = (event) => {
             const targetId = event.keyCode + '_button';
             const target = document.getElementById(targetId);
             if (target) {
-                console.log(target);
                 target.style.backgroundColor = '#81d8d0';
             }
         }
@@ -19,7 +16,6 @@ const Keyboard: React.FC = () => {
             const targetId = event.keyCode + '_button';
             const target = document.getElementById(targetId);
             if (target) {
-                console.log(target);
                 target.style.backgroundColor = '#FFF';
             }
         }
@@ -27,7 +23,7 @@ const Keyboard: React.FC = () => {
 
     return (
         <div className="keyboard">
-            <KeyLine key={key} />
+            <KeyLine />
         </div>
     );
 }

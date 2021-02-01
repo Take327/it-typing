@@ -1,0 +1,5 @@
+.typing_area{
+    display: flex;
+    flex-direction: column;
+    width: min-content;
+}

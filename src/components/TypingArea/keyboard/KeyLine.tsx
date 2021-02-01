@@ -1,10 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import KeyButtonNormal from './KeyButtonNormal'
 import './KeyLine.css';
-
-type Props = {
-    key: string
-}
 
 type KeyLineValues = { keyCode: string, keyValue: string }[]
 
@@ -16,15 +12,7 @@ const fefthLineValue: KeyLineValues = [{ keyCode: '17', keyValue: 'ctrl' }, { ke
 
 
 
-const KeyLine: React.FC<Props> = ({ key }) => {
-    const [keys, setKey] = useState('');
-
-    useEffect(() => {
-        console.log('test')
-        setKey(key);
-        console.log(keys)
-    }, [])
-
+const KeyLine: React.FC = () => {
 
     return (
         <>

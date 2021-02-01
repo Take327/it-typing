@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import Container from '@material-ui/core/Container';
 import { CssBaseline, Typography } from '@material-ui/core';
-import Keybord from './components/TypingArea/keyboard/Keyboard';
+import TypingArea from './components/TypingArea/TypingArea'
 
 
 
@@ -14,7 +14,7 @@ const App: React.FC = () => {
       <CssBaseline />
       <Container fixed>
         <Typography component="div" style={{ backgroundColor: '#cfe8fc', height: '100vh' }} >
-          <Keybord />
+          <TypingArea />
         </Typography>
       </Container>
     </>
