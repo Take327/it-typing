@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import './KeyButton.css';
@@ -16,8 +16,6 @@ type KeyObject = {
 }
 
 const KeyButtonNormal: React.FC<Props> = ({ keyObject }) => {
-    const [backGroundColor, setBackGroundColor] = useState('#FFF');
-
 
     const useStyles = makeStyles((theme: Theme) =>
         createStyles({
@@ -76,34 +74,27 @@ const KeyButtonNormal: React.FC<Props> = ({ keyObject }) => {
     );
     const classes = useStyles();
 
-    const handleChange = () => {
-
-
-        console.log('a');
-        setBackGroundColor('#81d8d0');
-    }
-
     const keyHandle = (keyObject: KeyObject) => {
         const code = keyObject.keyCode;
         const value = keyObject.keyValue
         switch (value) {
             case 'shift':
-                return <Paper id={code + '_button'} className={classes.shift}>{value}</Paper>
+                return <Paper id={'_button'} className={classes.shift}></Paper>
 
             case 'Tab':
-                return <Paper id={code + '_button'} className={classes.tab}>{value}</Paper>
+                return <Paper id={'_button'} className={classes.tab}></Paper>
 
             case 'space':
-                return <Paper id={code + '_button'} className={classes.space}>{value}</Paper>
+                return <Paper id={'_button'} className={classes.space}></Paper>
 
             case 'caps':
-                return <Paper id={code + '_button'} className={classes.caps}>{value}</Paper>
+                return <Paper id={'_button'} className={classes.caps}></Paper>
 
             case 'ctrl':
-                return <Paper id={code + '_button'} className={classes.ctrl}>{value}</Paper>
+                return <Paper id={'_button'} className={classes.ctrl}></Paper>
 
             case 'Enter':
-                return <Paper id={code + '_button'} className={classes.enter}>{value}</Paper>
+                return <Paper id={'_button'} className={classes.enter}></Paper>
 
             default:
                 return <Paper id={code + '_button'} className={classes.paper}>{value}</Paper>
@@ -111,7 +102,7 @@ const KeyButtonNormal: React.FC<Props> = ({ keyObject }) => {
     }
 
     return (
-        <div className="key_button" onClick={(e) => handleChange()}>
+        <div className="key_button">
             {keyHandle(keyObject)}
         </div>
     )

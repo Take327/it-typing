@@ -3,11 +3,6 @@ import './App.css';
 import Container from '@material-ui/core/Container';
 import { CssBaseline, Typography } from '@material-ui/core';
 import TypingArea from './components/TypingArea/TypingArea'
-import { FormatAlignCenter } from '@material-ui/icons';
-
-
-
-
 
 const App: React.FC = () => {
   return (
