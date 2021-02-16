@@ -6,27 +6,34 @@ import KanaText from './KanaText';
 import RomeText from './RomeText'
 import './TextArea';
 
+type Props = {
+    originalText: string,
+    kanaText: string,
+    romeText: string
+}
 const useStyles = makeStyles({
     root: {
         minWidth: 275,
     }
 });
 
-const TextArea: React.FC = () => {
-
+const TextArea: React.FC<Props> = ({ originalText, kanaText, romeText }) => {
     const testText = {
         mainText: '犬も歩けば棒に当たる',
         kanaText: 'いぬもあるけばぼうにあたる',
         romeText: 'inumoarukebabouniataru'
     }
 
+
+
+
     const classes = useStyles();
 
     return (
         <Card className={`${classes.root} text_area`} variant="outlined">
-            <MainText mainText={testText.mainText} />
-            <KanaText kanaText={testText.kanaText} />
-            <RomeText romeText={testText.romeText} />
+            <MainText mainText={originalText} />
+            <KanaText kanaText={kanaText} />
+            <RomeText romeText={romeText} />
         </Card>
     )
 }
