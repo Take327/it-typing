@@ -8,19 +8,47 @@ import { Sentence } from 'typing-ja';
 
 const TypingArea = () => {
 
-    const [originalText, setOriginalText] = useState('犬も歩けば棒に当たる');
-    const [kanaText, setKanaText] = useState('いぬもアルケバStickにあたる');
+    const typingTexts = [
+        { originalText: '犬も歩けば棒に当たる', kanaText: 'いぬもあるけばぼうにあたる' },
+        { originalText: '猫に小判', kanaText: 'ねこにこばん' },
+        { originalText: '豚に真珠', kanaText: 'ぶたにしんじゅ' },
+        { originalText: '石の上にも三年', kanaText: 'いしのうえにもさんねん' },
+    ]
+    const [clearCount, setClearCount] = useState(0);
+    const [originalText, setOriginalText] = useState(typingTexts[clearCount].originalText);
+    const [kanaText, setKanaText] = useState(typingTexts[clearCount].kanaText);
 
-    const sentence = new Sentence(kanaText);
-    const challenge = sentence.newChallenge();
+    const [sentence, setSentence] = useState(new Sentence(kanaText));
+    const [challenge, setChallenge] = useState(sentence.newChallenge());
 
     const [typedText, setTypedText] = useState(challenge.typedRoman);
     const [remainingText, setRemainingText] = useState(challenge.remainingRoman)
 
     const typingAction = (key) => {
-        challenge.input(key);
-        setTypedText(challenge.typedRoman);
-        setRemainingText(challenge.remainingRoman)
+        if (challenge.input(key)) {
+            setTypedText(challenge.typedRoman);
+            setRemainingText(challenge.remainingRoman);
+            if (challenge.isCleared()) {
+                const count = clearCount + 1;
+                setClearCount(count);
+                console.log(count);
+                setOriginalText(typingTexts[count].originalText);
+                setKanaText(typingTexts[count].kanaText);
+                console.log(kanaText);
+
+                setSentence(new Sentence(typingTexts[count].kanaText));
+                setChallenge(sentence.newChallenge());
+
+                setTypedText(challenge.typedRoman);
+                setRemainingText(challenge.remainingRoman);
+            }
+        } else {
+            document.querySelector('.text_area').style.backgroundColor = 'rgb(255, 0, 0)';
+            setTimeout(() => { document.querySelector('.text_area').style.backgroundColor = 'rgb(255, 255, 255)' }, 25);
+
+            //document.querySelector('.text_area').style.opacity = '0';
+        }
+
     }
 
     useEffect(() => {
