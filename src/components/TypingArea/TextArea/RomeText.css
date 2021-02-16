@@ -1,4 +1,12 @@
-.rome_text{
+.rome_text {
     font-size: 30px;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+.typed_text {
+    color: #ffd0a6;
+}
+.remaining_text {
+    color: #636363;
 }

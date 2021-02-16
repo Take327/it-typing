@@ -9,7 +9,8 @@ import './TextArea';
 type Props = {
     originalText: string,
     kanaText: string,
-    romeText: string
+    typedText: string,
+    remainingText: string,
 }
 const useStyles = makeStyles({
     root: {
@@ -17,15 +18,7 @@ const useStyles = makeStyles({
     }
 });
 
-const TextArea: React.FC<Props> = ({ originalText, kanaText, romeText }) => {
-    const testText = {
-        mainText: '犬も歩けば棒に当たる',
-        kanaText: 'いぬもあるけばぼうにあたる',
-        romeText: 'inumoarukebabouniataru'
-    }
-
-
-
+const TextArea: React.FC<Props> = ({ originalText, kanaText, typedText, remainingText }) => {
 
     const classes = useStyles();
 
@@ -33,7 +26,7 @@ const TextArea: React.FC<Props> = ({ originalText, kanaText, romeText }) => {
         <Card className={`${classes.root} text_area`} variant="outlined">
             <MainText mainText={originalText} />
             <KanaText kanaText={kanaText} />
-            <RomeText romeText={romeText} />
+            <RomeText typedText={typedText} remainingText={remainingText} />
         </Card>
     )
 }

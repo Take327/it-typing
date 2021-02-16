@@ -3,21 +3,25 @@ import TextArea from './TextArea/TextArea';
 import Keyboard from './keyboard/Keyboard';
 import './TypingArea.css';
 import TextProcess from './util/TextProcess'
+import { Sentence } from 'typing-ja';
 
-type TargetTextObject = {
-    originalText: string,
-    kanaText: string
-}
 
-const TypingArea: React.FC = () => {
+const TypingArea = () => {
 
-    const [targetTextObject, setTargetTextObject] = useState<TargetTextObject>({
-        originalText: '犬も歩けば棒に当たる',
-        kanaText: 'いぬもあるけばぼうにあたる'
-    })
+    const [originalText, setOriginalText] = useState('犬も歩けば棒に当たる');
+    const [kanaText, setKanaText] = useState('いぬもアルケバStickにあたる');
 
-    const text = new TextProcess(targetTextObject.kanaText);
-    const romeText = 'test'//text.remainingRoman;
+    const sentence = new Sentence(kanaText);
+    const challenge = sentence.newChallenge();
+
+    const [typedText, setTypedText] = useState(challenge.typedRoman);
+    const [remainingText, setRemainingText] = useState(challenge.remainingRoman)
+
+    const typingAction = (key) => {
+        challenge.input(key);
+        setTypedText(challenge.typedRoman);
+        setRemainingText(challenge.remainingRoman)
+    }
 
     useEffect(() => {
 
@@ -28,7 +32,7 @@ const TypingArea: React.FC = () => {
                 target.style.backgroundColor = '#81d8d0';
             }
 
-            console.log(text.input(event.key));
+            typingAction(event.key);
         }
         document.onkeyup = (event) => {
             const targetId = event.keyCode + '_button';
@@ -43,7 +47,7 @@ const TypingArea: React.FC = () => {
 
     return (
         <div className='typing_area'>
-            <TextArea originalText={targetTextObject.originalText} kanaText={targetTextObject.kanaText} romeText={romeText} />
+            <TextArea originalText={originalText} kanaText={kanaText} typedText={typedText} remainingText={remainingText} />
             <Keyboard />
         </div>
     )
