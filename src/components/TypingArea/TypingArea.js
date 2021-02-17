@@ -39,7 +39,6 @@ const TypingArea = () => {
 
 
     const nextText = (count) => {
-        console.log(count);
         setOriginalText(typingTexts[count].originalText);
         setKanaText(typingTexts[count].kanaText);
 
@@ -53,7 +52,12 @@ const TypingArea = () => {
             setTypedText(challenges[count].typedRoman);
             setRemainingText(challenges[count].remainingRoman);
             if (challenges[count].isCleared()) {
-                dispatch();
+                if (count + 1 === typingTexts.length) {
+                    alert('クリア');
+                }else{
+                    dispatch();
+                }
+                
             }
         } else {
             document.querySelector('.text_area').style.backgroundColor = 'rgb(255, 0, 0)';
