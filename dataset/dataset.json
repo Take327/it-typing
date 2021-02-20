@@ -1,0 +1,22 @@
+{
+    "default": {
+        "kotowaza": [
+            {
+                "originalText": "犬も歩けば棒に当たる",
+                "kanaText": "いぬもあるけばぼうにあたる"
+            },
+            {
+                "originalText": "猫に小判",
+                "kanaText": "ねこにこばん"
+            },
+            {
+                "originalText": "豚に真珠",
+                "kanaText": "ぶたにしんじゅ"
+            },
+            {
+                "originalText": "石の上にも三年",
+                "kanaText": "いしのうえにもさんねん"
+            }
+        ]
+    }
+}

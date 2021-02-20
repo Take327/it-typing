@@ -57,7 +57,6 @@ const TypingArea = () => {
                 }else{
                     dispatch();
                 }
-                
             }
         } else {
             document.querySelector('.text_area').style.backgroundColor = 'rgb(255, 0, 0)';
@@ -92,7 +91,6 @@ const TypingArea = () => {
         <div className='typing_area'>
             <TextArea originalText={originalText} kanaText={kanaText} typedText={typedText} remainingText={remainingText} />
             <Keyboard />
-            {count}
         </div>
     )
 }
