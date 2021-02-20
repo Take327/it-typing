@@ -4,8 +4,7 @@ import Keyboard from './keyboard/Keyboard';
 import './TypingArea.css';
 import { Sentence } from 'typing-ja';
 
-
-const TypingArea = () => {
+const TypingArea = (props) => {
 
     const reducerFunc = (countState) => {
         return countState + 1;
@@ -13,13 +12,8 @@ const TypingArea = () => {
 
     const [count, dispatch] = useReducer(reducerFunc, 0);
 
-
-    const typingTexts = [
-        { originalText: '犬も歩けば棒に当たる', kanaText: 'いぬもあるけばぼうにあたる' },
-        { originalText: '猫に小判', kanaText: 'ねこにこばん' },
-        { originalText: '豚に真珠', kanaText: 'ぶたにしんじゅ' },
-        { originalText: '石の上にも三年', kanaText: 'いしのうえにもさんねん' },
-    ];
+    const typingTexts = props;
+    console.log(typingTexts);
 
     const typingInstances = typingTexts.map((value, index) => {
         return new Sentence(value.kanaText);
@@ -54,7 +48,7 @@ const TypingArea = () => {
             if (challenges[count].isCleared()) {
                 if (count + 1 === typingTexts.length) {
                     alert('クリア');
-                }else{
+                } else {
                     dispatch();
                 }
             }
