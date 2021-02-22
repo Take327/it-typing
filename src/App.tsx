@@ -7,10 +7,6 @@ import getDefault from './util/getDefault';
 
 const App: React.FC = () => {
   const [defaultTexts, setDefaultTexts] = useState<Object | null>(getDefault().then(json => json));
-  useEffect(() => {
-    getDefault().then(json => setDefaultTexts(json));
-
-  },[])
 
   return (
     <>
