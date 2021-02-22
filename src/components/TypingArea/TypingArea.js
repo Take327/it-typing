@@ -4,6 +4,7 @@ import Keyboard from './keyboard/Keyboard';
 import './TypingArea.css';
 import { Sentence } from 'typing-ja';
 
+
 const TypingArea = (props) => {
 
     const reducerFunc = (countState) => {
@@ -12,7 +13,9 @@ const TypingArea = (props) => {
 
     const [count, dispatch] = useReducer(reducerFunc, 0);
 
-    const typingTexts = props;
+    console.log(props.kotowaza);
+
+    const typingTexts = props.kotowaza;
     console.log(typingTexts);
 
     const typingInstances = typingTexts.map((value, index) => {
@@ -61,6 +64,7 @@ const TypingArea = (props) => {
 
     useEffect(() => {
         nextText(count);
+        props.geter()
         document.onkeydown = (event) => {
             const targetId = event.keyCode + '_button';
             const target = document.getElementById(targetId);
