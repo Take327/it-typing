@@ -15,9 +15,6 @@ const TypingArea = (props) => {
 
     const [count, dispatch] = useReducer(reducerFunc, 0);
 
-    const typingTexts = props.kotowaza;
-    console.log(typingTexts)
-
     const [originalText, setOriginalText] = useState('');
     const [kanaText, setKanaText] = useState('');
 
@@ -25,31 +22,44 @@ const TypingArea = (props) => {
     const [typedText, setTypedText] = useState('');
     const [remainingText, setRemainingText] = useState('');
 
+    const [challenges, setChallenges] = useState([])
+    const [typingTexts, setTypingText] = useState([])
 
-    const startText = (typingTexts) => {
 
-        const typingInstances = typingTexts.map((value) => {
+    const startText = (startTexts) => {
+        console.log('startText');
+        console.log(startTexts)
+
+        setOriginalText(startTexts[0].originalText);
+        setKanaText(startTexts[0].kanaText);
+
+        const typingInstanceArry = startTexts.map((value) => {
+            typingTexts.push(value);
             return new Sentence(value.kanaText);
         });
-    
-        const challenges = typingInstances.map((sentence) => {
-            return sentence.newChallenge();
-        })
+        const challengeArry = typingInstanceArry.map((sentence) => {
+            challenges.push(sentence.newChallenge());
+        });
 
-        setOriginalText(typingTexts[0].originalText);
-        setKanaText(typingTexts[0].kanaText);
+        setChallenges(challengeArry)
+        console.log(challenges)
+
 
 
 
         setTypedText(challenges[0].typedRoman);
         setRemainingText(challenges[0].remainingRoman);
+        setTypingText(typingTexts);
     }
 
 
     const nextText = (count) => {
+        console.log('nextText関数');
+        console.log(typingTexts);
         setOriginalText(typingTexts[count].originalText);
         setKanaText(typingTexts[count].kanaText);
 
+        console.log(challenges)
         setTypedText(challenges[count].typedRoman);
         setRemainingText(challenges[count].remainingRoman);
 
@@ -60,10 +70,11 @@ const TypingArea = (props) => {
             setTypedText(challenges[count].typedRoman);
             setRemainingText(challenges[count].remainingRoman);
             if (challenges[count].isCleared()) {
-                if (count + 1 === typingTexts.length) {
+                if (count + 1 === challenges.length) {
                     alert('クリア');
                 } else {
                     dispatch();
+                    nextText(count);
                 }
             }
         } else {
@@ -73,13 +84,24 @@ const TypingArea = (props) => {
 
     }
 
+
+    const [unmounted, setUnmounted] = useState(false)
+
     useEffect(() => {
 
-        (() => {
-            console.log('tester')
+        //非同期無名関数の即時呼び出し
+        (async () => {
+
+            //非同期でデータを取得
+
+            //アンマウントされていなければステートを更新
+            if (!unmounted) {
+                getDefault().then(json => startText(json));
+                setUnmounted(true);
+            };
+
         })();
 
-        nextText(count);
         document.onkeydown = (event) => {
             const targetId = event.keyCode + '_button';
             const target = document.getElementById(targetId);
