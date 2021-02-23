@@ -44,7 +44,8 @@ const getDefault = async () => {
 
     const result = await fetchAction();
 
-    return result;
+    console.log(result?.kotowaza);
+    return result?.kotowaza;
 }
 
 export default getDefault;

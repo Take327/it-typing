@@ -3,6 +3,8 @@ import TextArea from './TextArea/TextArea';
 import Keyboard from './keyboard/Keyboard';
 import './TypingArea.css';
 import { Sentence } from 'typing-ja';
+import getDefault from '../../util/getDefault';
+
 
 
 const TypingArea = (props) => {
@@ -13,26 +15,35 @@ const TypingArea = (props) => {
 
     const [count, dispatch] = useReducer(reducerFunc, 0);
 
-    console.log(props.kotowaza);
-
     const typingTexts = props.kotowaza;
-    console.log(typingTexts);
+    console.log(typingTexts)
 
-    const typingInstances = typingTexts.map((value, index) => {
-        return new Sentence(value.kanaText);
-    });
-
-    const challenges = typingInstances.map((sentence) => {
-        return sentence.newChallenge();
-    })
+    const [originalText, setOriginalText] = useState('');
+    const [kanaText, setKanaText] = useState('');
 
 
-    const [originalText, setOriginalText] = useState(typingTexts[count].originalText);
-    const [kanaText, setKanaText] = useState(typingTexts[count].kanaText);
+    const [typedText, setTypedText] = useState('');
+    const [remainingText, setRemainingText] = useState('');
 
 
-    const [typedText, setTypedText] = useState(challenges[count].typedRoman);
-    const [remainingText, setRemainingText] = useState(challenges[count].remainingRoman);
+    const startText = (typingTexts) => {
+
+        const typingInstances = typingTexts.map((value) => {
+            return new Sentence(value.kanaText);
+        });
+    
+        const challenges = typingInstances.map((sentence) => {
+            return sentence.newChallenge();
+        })
+
+        setOriginalText(typingTexts[0].originalText);
+        setKanaText(typingTexts[0].kanaText);
+
+
+
+        setTypedText(challenges[0].typedRoman);
+        setRemainingText(challenges[0].remainingRoman);
+    }
 
 
     const nextText = (count) => {
@@ -63,8 +74,12 @@ const TypingArea = (props) => {
     }
 
     useEffect(() => {
+
+        (() => {
+            console.log('tester')
+        })();
+
         nextText(count);
-        props.geter()
         document.onkeydown = (event) => {
             const targetId = event.keyCode + '_button';
             const target = document.getElementById(targetId);
