@@ -20,6 +20,7 @@ const App: React.FC = () => {
   const [defaultTexts, setDefaultTexts] = useState<Start | undefined>(start);
 
 
+  
 
   // 副作用フック
   useEffect(() => {
