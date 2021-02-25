@@ -10,10 +10,12 @@ import getDefault from '../../util/getDefault';
 const TypingArea = (props) => {
 
     const reducerFunc = (countState) => {
-        return countState + 1;
+        const result = countState + 1;
+        console.log(result)
+        return result;
     }
 
-    const [count, dispatch] = useReducer(reducerFunc, 0);
+    const [count, setCount] = useReducer(reducerFunc,0);
 
     const [originalText, setOriginalText] = useState('');
     const [kanaText, setKanaText] = useState('');
@@ -22,13 +24,11 @@ const TypingArea = (props) => {
     const [typedText, setTypedText] = useState('');
     const [remainingText, setRemainingText] = useState('');
 
-    const [challenges, setChallenges] = useState([])
-    const [typingTexts, setTypingText] = useState([])
+    const [challenges, setChallenges] = useState([]);
+    const [typingTexts, setTypingText] = useState([]);
 
 
     const startText = (startTexts) => {
-        console.log('startText');
-        console.log(startTexts)
 
         setOriginalText(startTexts[0].originalText);
         setKanaText(startTexts[0].kanaText);
@@ -42,11 +42,6 @@ const TypingArea = (props) => {
         });
 
         setChallenges(challengeArry)
-        console.log(challenges)
-
-
-
-
         setTypedText(challenges[0].typedRoman);
         setRemainingText(challenges[0].remainingRoman);
         setTypingText(typingTexts);
@@ -54,18 +49,17 @@ const TypingArea = (props) => {
 
 
     const nextText = (count) => {
-        console.log('nextText関数');
-        console.log(typingTexts);
-        setOriginalText(typingTexts[count].originalText);
-        setKanaText(typingTexts[count].kanaText);
+        const nextCount = count +1;
+        setOriginalText(typingTexts[nextCount].originalText);
+        setKanaText(typingTexts[nextCount].kanaText);
 
-        console.log(challenges)
-        setTypedText(challenges[count].typedRoman);
-        setRemainingText(challenges[count].remainingRoman);
-
+        setTypedText(challenges[nextCount].typedRoman);
+        setRemainingText(challenges[nextCount].remainingRoman);
+        setCount();
     }
 
-    const typingAction = (key) => {
+    const typingAction = (key,count) => {
+        console.log(challenges);
         if (challenges[count].input(key)) {
             setTypedText(challenges[count].typedRoman);
             setRemainingText(challenges[count].remainingRoman);
@@ -73,8 +67,8 @@ const TypingArea = (props) => {
                 if (count + 1 === challenges.length) {
                     alert('クリア');
                 } else {
-                    dispatch();
                     nextText(count);
+                    console.log(count);
                 }
             }
         } else {
@@ -109,7 +103,7 @@ const TypingArea = (props) => {
                 target.style.backgroundColor = '#81d8d0';
             }
 
-            typingAction(event.key)
+            typingAction(event.key,count);
         }
         document.onkeyup = (event) => {
             const targetId = event.keyCode + '_button';
@@ -126,6 +120,7 @@ const TypingArea = (props) => {
         <div className='typing_area'>
             <TextArea originalText={originalText} kanaText={kanaText} typedText={typedText} remainingText={remainingText} />
             <Keyboard />
+            {count}
         </div>
     )
 }
