@@ -18,9 +18,14 @@ const App: React.FC = () => {
     }
   ]
   const [defaultTexts, setDefaultTexts] = useState<Start | undefined>(start);
+  const [clearCount, setClearCount] = useState(0)
+
+  const clearCountUp = () => {
+    setClearCount(clearCount + 1)
+  }
 
 
-  
+
 
   // 副作用フック
   useEffect(() => {
@@ -51,7 +56,7 @@ const App: React.FC = () => {
       <CssBaseline />
       <Container fixed>
         <Typography component="div" style={{ backgroundColor: '#cfe8fc', height: '100vh', alignContent: 'center' }} >
-          <TypingArea kotowaza={defaultTexts} />
+          <TypingArea kotowaza={defaultTexts} clearCountUp={clearCountUp} clearCount={clearCount} />
         </Typography>
         {JSON.stringify(defaultTexts)}
       </Container>

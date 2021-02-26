@@ -9,14 +9,6 @@ import getDefault from '../../util/getDefault';
 
 const TypingArea = (props) => {
 
-    const reducerFunc = (countState) => {
-        const result = countState + 1;
-        console.log(result)
-        return result;
-    }
-
-    const [count, setCount] = useReducer(reducerFunc,0);
-
     const [originalText, setOriginalText] = useState('');
     const [kanaText, setKanaText] = useState('');
 
@@ -48,27 +40,26 @@ const TypingArea = (props) => {
     }
 
 
-    const nextText = (count) => {
-        const nextCount = count +1;
-        setOriginalText(typingTexts[nextCount].originalText);
-        setKanaText(typingTexts[nextCount].kanaText);
+    const nextText = () => {
+        props.clearCountUp();
+        setOriginalText(typingTexts[props.clearCount].originalText);
+        setKanaText(typingTexts[props.clearCount].kanaText);
 
-        setTypedText(challenges[nextCount].typedRoman);
-        setRemainingText(challenges[nextCount].remainingRoman);
-        setCount();
+        setTypedText(challenges[props.clearCount].typedRoman);
+        setRemainingText(challenges[props.clearCount].remainingRoman);
+        
     }
 
-    const typingAction = (key,count) => {
-        console.log(challenges);
-        if (challenges[count].input(key)) {
-            setTypedText(challenges[count].typedRoman);
-            setRemainingText(challenges[count].remainingRoman);
-            if (challenges[count].isCleared()) {
-                if (count + 1 === challenges.length) {
+    const typingAction = (key) => {
+        console.log(challenges[props.clearCount]);
+        if (challenges[props.clearCount].input(key)) {
+            setTypedText(challenges[props.clearCount].typedRoman);
+            setRemainingText(challenges[props.clearCount].remainingRoman);
+            if (challenges[props.clearCount].isCleared()) {
+                if (props.clearCount + 1 === challenges.length) {
                     alert('クリア');
                 } else {
-                    nextText(count);
-                    console.log(count);
+                    nextText();
                 }
             }
         } else {
@@ -82,14 +73,13 @@ const TypingArea = (props) => {
     const [unmounted, setUnmounted] = useState(false)
 
     useEffect(() => {
-
         //非同期無名関数の即時呼び出し
         (async () => {
-
             //非同期でデータを取得
 
             //アンマウントされていなければステートを更新
             if (!unmounted) {
+                console.log('async')
                 getDefault().then(json => startText(json));
                 setUnmounted(true);
             };
@@ -103,7 +93,7 @@ const TypingArea = (props) => {
                 target.style.backgroundColor = '#81d8d0';
             }
 
-            typingAction(event.key,count);
+            typingAction(event.key);
         }
         document.onkeyup = (event) => {
             const targetId = event.keyCode + '_button';
@@ -112,7 +102,7 @@ const TypingArea = (props) => {
                 target.style.backgroundColor = '#FFF';
             }
         }
-    }, [count]);
+    }, []);
 
 
 
@@ -120,7 +110,7 @@ const TypingArea = (props) => {
         <div className='typing_area'>
             <TextArea originalText={originalText} kanaText={kanaText} typedText={typedText} remainingText={remainingText} />
             <Keyboard />
-            {count}
+            {props.clearCount}
         </div>
     )
 }
