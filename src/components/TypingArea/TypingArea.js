@@ -40,13 +40,13 @@ const TypingArea = (props) => {
     }
 
 
-    const nextText = () => {
-        props.clearCountUp();
-        setOriginalText(typingTexts[props.clearCount].originalText);
-        setKanaText(typingTexts[props.clearCount].kanaText);
+    const nextText = (clearCount) => {
+        console.log(clearCount)
+        setOriginalText(typingTexts[clearCount].originalText);
+        setKanaText(typingTexts[clearCount].kanaText);
 
-        setTypedText(challenges[props.clearCount].typedRoman);
-        setRemainingText(challenges[props.clearCount].remainingRoman);
+        setTypedText(challenges[clearCount].typedRoman);
+        setRemainingText(challenges[clearCount].remainingRoman);
         
     }
 
@@ -59,7 +59,8 @@ const TypingArea = (props) => {
                 if (props.clearCount + 1 === challenges.length) {
                     alert('クリア');
                 } else {
-                    nextText();
+                    props.clearCountUp();
+                    nextText(props.clearCount);
                 }
             }
         } else {
