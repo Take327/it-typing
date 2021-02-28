@@ -22,8 +22,8 @@ const TypingArea = (props) => {
 
     const startText = (startTexts) => {
 
-        setOriginalText(startTexts[0].originalText);
-        setKanaText(startTexts[0].kanaText);
+        setOriginalText(startTexts[props.clearCount].originalText);
+        setKanaText(startTexts[props.clearCount].kanaText);
 
         const typingInstanceArry = startTexts.map((value) => {
             typingTexts.push(value);
@@ -47,20 +47,20 @@ const TypingArea = (props) => {
 
         setTypedText(challenges[clearCount].typedRoman);
         setRemainingText(challenges[clearCount].remainingRoman);
-        
+
     }
 
-    const typingAction = (key) => {
-        console.log(challenges[props.clearCount]);
-        if (challenges[props.clearCount].input(key)) {
-            setTypedText(challenges[props.clearCount].typedRoman);
-            setRemainingText(challenges[props.clearCount].remainingRoman);
-            if (challenges[props.clearCount].isCleared()) {
-                if (props.clearCount + 1 === challenges.length) {
+    const typingAction = (key, clearCount) => {
+        console.log(clearCount,challenges[clearCount]);
+        if (challenges[clearCount].input(key)) {
+            setTypedText(challenges[clearCount].typedRoman);
+            setRemainingText(challenges[clearCount].remainingRoman);
+            if (challenges[clearCount].isCleared()) {
+                if (clearCount + 1 === challenges.length) {
                     alert('クリア');
                 } else {
                     props.clearCountUp();
-                    nextText(props.clearCount);
+                    nextText(clearCount);
                 }
             }
         } else {
@@ -94,7 +94,7 @@ const TypingArea = (props) => {
                 target.style.backgroundColor = '#81d8d0';
             }
 
-            typingAction(event.key);
+            typingAction(event.key, props.clearCount);
         }
         document.onkeyup = (event) => {
             const targetId = event.keyCode + '_button';
