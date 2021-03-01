@@ -18,6 +18,7 @@ const TypingArea = (props) => {
 
     const [challenges, setChallenges] = useState([]);
     const [typingTexts, setTypingText] = useState([]);
+    
 
 
     const startText = (startTexts) => {
