@@ -6,7 +6,57 @@ import { Sentence } from 'typing-ja';
 import getDefault from '../../util/getDefault';
 
 
+class TypingArea extends React.Component {
+    constructor(props) {
+        super();
 
+        this.state = {
+            count: 0,
+            originalText: '',
+            kanaText: '',
+            typedText: '',
+            remainingText: '',
+            challenges: [],
+            typingTexts: []
+        }
+    }
+
+    componentDidMount() {
+        document.onkeydown = (event) => {
+            const targetId = event.keyCode + '_button';
+            const target = document.getElementById(targetId);
+            if (target) {
+                target.style.backgroundColor = '#81d8d0';
+            }
+
+            //typingAction(event.key, props.clearCount);
+        }
+        document.onkeyup = (event) => {
+            const targetId = event.keyCode + '_button';
+            const target = document.getElementById(targetId);
+            if (target) {
+                target.style.backgroundColor = '#FFF';
+            }
+        }
+    }
+
+
+    render() {
+
+        return (
+            <div className='typing_area'>
+                <TextArea originalText={this.state.originalText} kanaText={this.state.kanaText} typedText={this.state.typedText} remainingText={this.state.remainingText} />
+                <Keyboard />
+                {this.state.count}
+            </div>
+        )
+    }
+
+}
+
+export default TypingArea
+
+/*
 const TypingArea = (props) => {
 
     const [originalText, setOriginalText] = useState('');
@@ -18,7 +68,7 @@ const TypingArea = (props) => {
 
     const [challenges, setChallenges] = useState([]);
     const [typingTexts, setTypingText] = useState([]);
-    
+
 
 
     const startText = (startTexts) => {
@@ -117,4 +167,4 @@ const TypingArea = (props) => {
     )
 }
 
-export default TypingArea
+*/
