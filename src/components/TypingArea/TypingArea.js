@@ -90,7 +90,7 @@ class TypingArea extends React.Component {
                     alert('クリア');
                 } else {
                     this.setState({ count: count + 1 });
-                    this.nextText(count);
+                    this.nextText(this.state.count);
                 }
             }
         } else {
@@ -117,7 +117,6 @@ class TypingArea extends React.Component {
             <div className='typing_area'>
                 <TextArea originalText={this.state.originalText} kanaText={this.state.kanaText} typedText={this.state.typedText} remainingText={this.state.remainingText} />
                 <Keyboard />
-                {this.state.count}
             </div>
         )
     }
