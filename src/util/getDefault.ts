@@ -14,7 +14,6 @@ const getDefault = async () => {
         const response = await fetch(url)
         .then((response) => response)
         .catch((error) => {
-          console.error(error)
           return null
         })
   
@@ -44,7 +43,6 @@ const getDefault = async () => {
 
     const result = await fetchAction();
 
-    console.log(result?.kotowaza);
     return result?.kotowaza;
 }
 
