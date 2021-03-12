@@ -12,9 +12,6 @@ const App: React.FC = () => {
   return (
     <>
       <CssBaseline />
-
-
-
       <Container fixed>
         <Typography component="div" style={{ backgroundColor: '#cfe8fc', height: '100vh', alignContent: 'center' }} >
           <TypingArea />
