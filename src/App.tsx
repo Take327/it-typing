@@ -2,10 +2,13 @@ import React from 'react';
 import './App.css';
 import { CssBaseline, Typography } from '@material-ui/core';
 import TypingArea from './components/TypingArea/TypingArea'
-import TemporaryDrawer from './components/Menu/TemporaryDrawer'
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import SideNavi from './components/Menu/SideNavi';
 import Header from './components/Menu/Header'
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import TypingPage from './components/MainArea/TypingPage'
+import TextRegistration from './components/MainArea/TextRegistration'
+
 
 interface Props {
   window?: () => Window;
@@ -33,16 +36,19 @@ const App: React.FC = () => {
   return (
 
     <div className={classes.root}>
-      <CssBaseline />
-      <Header />
-      <SideNavi />
+      <Router>
+        <CssBaseline />
+        <Header />
+        <SideNavi />
 
-      <main className={classes.content}>
-        <TemporaryDrawer />
-        <Typography component="div" style={{ backgroundColor: '#cfe8fc', height: '100vh', alignContent: 'center' }} >
-          <TypingArea />
-        </Typography>
-      </main>
+        <main className={classes.content}>
+          <Route path='/typing' component={TypingPage} />
+          <Route path='/TextRegistration' component={TextRegistration} />
+
+
+
+        </main>
+      </Router>
     </div>
   );
 

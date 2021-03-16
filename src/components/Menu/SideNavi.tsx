@@ -7,8 +7,10 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import SaveIcon from '@material-ui/icons/Save';
 import MailIcon from '@material-ui/icons/Mail';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom'
 
 const drawerWidth = 240;
 
@@ -50,12 +52,23 @@ const SideMenu = () => {
                     <div className={classes.toolbar} >
                         <Divider />
                         <List>
-                            {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                                <ListItem button key={text}>
-                                    <ListItemIcon>{index % 2 === 0 ? <KeyboardIcon /> : <MailIcon />}</ListItemIcon>
-                                    <ListItemText primary={text} />
+                            <Link to='/typing'>
+                                <ListItem button key={'タイピング'}>
+                                    <ListItemIcon>
+                                        <KeyboardIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary={'タイピング'} />
                                 </ListItem>
-                            ))}
+                            </Link>
+
+                            <Link to='/TextRegistration'>
+                                <ListItem button key={'テキスト登録'}>
+                                    <ListItemIcon>
+                                        <SaveIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary={'テキスト登録'} />
+                                </ListItem>
+                            </Link>
                         </List>
                         <Divider />
                     </div>
