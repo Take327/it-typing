@@ -10,7 +10,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import SaveIcon from '@material-ui/icons/Save';
 import MailIcon from '@material-ui/icons/Mail';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import { Link } from 'react-router-dom'
+import { Link,NavLink } from 'react-router-dom'
 
 const drawerWidth = 240;
 
@@ -52,14 +52,14 @@ const SideMenu = () => {
                     <div className={classes.toolbar} >
                         <Divider />
                         <List>
-                            <Link to='/typing'>
+                            <NavLink to='/typing'>
                                 <ListItem button key={'タイピング'}>
                                     <ListItemIcon>
                                         <KeyboardIcon />
                                     </ListItemIcon>
                                     <ListItemText primary={'タイピング'} />
                                 </ListItem>
-                            </Link>
+                            </NavLink>
 
                             <Link to='/TextRegistration'>
                                 <ListItem button key={'テキスト登録'}>
