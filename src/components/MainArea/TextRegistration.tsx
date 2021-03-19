@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Typography } from '@material-ui/core';
+import getDefault from '../../util/getDefault';
 
 
 const TextRegistration = () => {
+    useEffect(() => {
+        getDefault().then(json => console.log(json))
+    });
 
     return (
         <div>
-            <Typography component="div" style={{ backgroundColor: '#cfe8fc', height: '100vh', alignContent: 'center' }} >
-                テキスト登録
-            </Typography>
+            テキスト登録
         </div>
     )
 }

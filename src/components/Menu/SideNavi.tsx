@@ -10,7 +10,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import SaveIcon from '@material-ui/icons/Save';
 import HomeIcon from '@material-ui/icons/Home';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import { Link, NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 const drawerWidth = 240;
 
