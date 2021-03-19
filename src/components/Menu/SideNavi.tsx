@@ -8,9 +8,9 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import SaveIcon from '@material-ui/icons/Save';
-import MailIcon from '@material-ui/icons/Mail';
+import HomeIcon from '@material-ui/icons/Home';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import { Link,NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 
 const drawerWidth = 240;
 
@@ -39,6 +39,11 @@ const useStyles = makeStyles((theme: Theme) =>
 const SideMenu = () => {
     const classes = useStyles();
 
+    const current = {
+        color: 'blue',
+        textDecoration: 'underline',
+    };
+
     return (
         <nav className={classes.drawer} aria-label="mailbox folders">
             <Hidden xsDown implementation="css">
@@ -52,7 +57,16 @@ const SideMenu = () => {
                     <div className={classes.toolbar} >
                         <Divider />
                         <List>
-                            <NavLink to='/typing'>
+                            <NavLink exact to='/' activeStyle={current}>
+                                <ListItem button key={'ホーム'}>
+                                    <ListItemIcon>
+                                        <HomeIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary={'ホーム'} />
+                                </ListItem>
+                            </NavLink>
+
+                            <NavLink exact to='/typing' activeStyle={current}>
                                 <ListItem button key={'タイピング'}>
                                     <ListItemIcon>
                                         <KeyboardIcon />
@@ -61,14 +75,14 @@ const SideMenu = () => {
                                 </ListItem>
                             </NavLink>
 
-                            <Link to='/TextRegistration'>
+                            <NavLink exact to='/TextRegistration' activeStyle={current}>
                                 <ListItem button key={'テキスト登録'}>
                                     <ListItemIcon>
                                         <SaveIcon />
                                     </ListItemIcon>
                                     <ListItemText primary={'テキスト登録'} />
                                 </ListItem>
-                            </Link>
+                            </NavLink>
                         </List>
                         <Divider />
                     </div>
