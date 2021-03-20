@@ -31,8 +31,9 @@ const useStyles = makeStyles((theme: Theme) =>
     content: {
       flexGrow: 1,
       padding: theme.spacing(3),
-      backgroundColor: '#cfe8fc',
+      backgroundColor: '#edf7ff',
       height: '100vh',
+      paddingTop: '60px'
 
 
     },
@@ -45,17 +46,23 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const App: React.FC = () => {
 
-  useEffect(() => {
-    getDefault().then(json => initialTyping(json))
-  });
+  const [typing, setTyping] = useState<typingText>([]);
+  const [loadStatus, setLoadStatus] = useState<boolean>(false);
 
   const initialTyping = (json: typingText | undefined) => {
     if (json !== undefined) {
+      setTyping(json)
       console.log(json)
     }
   }
 
-  const [typing, setTyping] = useState([]);
+  useEffect(() => {
+    if (!loadStatus) {
+      getDefault().then(json => initialTyping(json))
+      setLoadStatus(true);
+    }
+  });
+
 
 
   const classes = useStyles();
@@ -71,10 +78,12 @@ const App: React.FC = () => {
         <main className={classes.content}>
           <Route path='/typing' component={TypingPage} />
           <Route path='/TextRegistration' component={TextRegistration} />
+          {typing.toString()}
         </main>
       </Router>
-      {typing}
     </div>
+
+    
   );
 
 
