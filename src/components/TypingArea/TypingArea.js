@@ -20,6 +20,8 @@ class TypingArea extends React.Component {
             typingTexts: [],
             unmounted: false
         }
+
+        this.typingText = props.typingText;
     }
 
     componentDidMount() {
@@ -30,7 +32,7 @@ class TypingArea extends React.Component {
             //アンマウントされていなければステートを更新
             if (!this.state.unmounted) {
                 console.log('async')
-                getDefault().then(json => this.startText(json));
+                //getDefault().then(json => this.startText(json));
                 this.setState({ unmounted: true });
             };
 
@@ -55,25 +57,27 @@ class TypingArea extends React.Component {
     }
 
     startText(startTexts) {
+        if (startTexts.length !== 0) {
+            console.log(startTexts);
+            this.setState({ originalText: startTexts[this.state.count].originalText });
+            this.setState({ kanaText: startTexts[this.state.count].kanaText });
 
-        this.setState({ originalText: startTexts[this.state.count].originalText });
-        this.setState({ kanaText: startTexts[this.state.count].kanaText });
-
-        this.setState({ typingTexts: startTexts });
+            this.setState({ typingTexts: startTexts });
 
 
-        const typingInstanceArry = startTexts.map((value) => {
-            return new Sentence(value.kanaText);
-        });
+            const typingInstanceArry = startTexts.map((value) => {
+                return new Sentence(value.kanaText);
+            });
 
-        const challengeArry = typingInstanceArry.map((sentence) => {
-            return sentence.newChallenge();
-        });
+            const challengeArry = typingInstanceArry.map((sentence) => {
+                return sentence.newChallenge();
+            });
 
-        this.setState({ challenges: challengeArry });
+            this.setState({ challenges: challengeArry });
 
-        this.setState({ typedText: this.state.challenges[0].typedRoman });
-        this.setState({ remainingText: this.state.challenges[0].remainingRoman })
+            this.setState({ typedText: this.state.challenges[0].typedRoman });
+            this.setState({ remainingText: this.state.challenges[0].remainingRoman })
+        }
 
     }
 

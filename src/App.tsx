@@ -34,8 +34,6 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: '#edf7ff',
       height: '100vh',
       paddingTop: '60px'
-
-
     },
     typography: {
       height: '100vh',
@@ -63,11 +61,7 @@ const App: React.FC = () => {
     }
   });
 
-
-
   const classes = useStyles();
-
-
 
   return (
     <div className={classes.root}>
@@ -76,14 +70,14 @@ const App: React.FC = () => {
         <Header />
         <SideNavi />
         <main className={classes.content}>
-          <Route path='/typing' component={TypingPage} />
+          <Route path='/typing' render={() => <TypingPage typingText={typing}/>} />
           <Route path='/TextRegistration' component={TextRegistration} />
           {typing.toString()}
         </main>
       </Router>
     </div>
 
-    
+
   );
 
 

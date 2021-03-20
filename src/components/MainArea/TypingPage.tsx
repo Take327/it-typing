@@ -1,10 +1,17 @@
 import React from 'react';
 import TypingArea from '../TypingArea/TypingArea'
 
+type Props = {
+    originalText: string,
+    kanaText: string
+}[]
 
-const TypingPage = () => {
+const TypingPage = (props: any) => {
+
+    console.log(props.typingText)
     return (
-            <TypingArea />
+        <TypingArea typingText={props.typingText} />
+
     )
 }
 
