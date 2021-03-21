@@ -8,21 +8,28 @@ import getDefault from '../../util/getDefault';
 
 class TypingArea extends React.Component {
     constructor(props) {
-        super();
-
+        super(props);
         this.state = {
             count: 0,
-            originalText: '',
+            originalText: 'スペースキーを押してください。',
             kanaText: '',
             typedText: '',
             remainingText: '',
             challenges: [],
             typingTexts: [],
-            unmounted: false
+            unmounted: false,
+            initialize: false
         }
 
-        this.typingText = props.typingText;
+
     }
+
+    /*
+    componentDidUpdate(prevProps) {
+        console.log("componentDidUpdate",prevProps.typingText)
+            this.startText(prevProps.typingText)
+    }
+    */
 
     componentDidMount() {
 
@@ -39,13 +46,21 @@ class TypingArea extends React.Component {
         })();
 
         document.onkeydown = (event) => {
-            const targetId = event.keyCode + '_button';
-            const target = document.getElementById(targetId);
-            if (target) {
-                target.style.backgroundColor = '#81d8d0';
-            }
+            if (this.state.initialize) {
+                const targetId = event.keyCode + '_button';
+                const target = document.getElementById(targetId);
+                if (target) {
+                    target.style.backgroundColor = '#81d8d0';
+                }
 
-            this.typingAction(event.key, this.state.count);
+                this.typingAction(event.key, this.state.count);
+            } else {
+                if (event.key === ' ') {
+                    this.startText(this.props.typingText);
+                    this.setState({ initialize: true });
+
+                }
+            }
         }
         document.onkeyup = (event) => {
             const targetId = event.keyCode + '_button';
@@ -58,7 +73,7 @@ class TypingArea extends React.Component {
 
     startText(startTexts) {
         if (startTexts.length !== 0) {
-            console.log(startTexts);
+            console.log("startText", startTexts);
             this.setState({ originalText: startTexts[this.state.count].originalText });
             this.setState({ kanaText: startTexts[this.state.count].kanaText });
 
@@ -74,6 +89,8 @@ class TypingArea extends React.Component {
             });
 
             this.setState({ challenges: challengeArry });
+
+            console.log(this.state.challenges[0])
 
             this.setState({ typedText: this.state.challenges[0].typedRoman });
             this.setState({ remainingText: this.state.challenges[0].remainingRoman })
@@ -105,10 +122,8 @@ class TypingArea extends React.Component {
     }
 
     nextText(count) {
-
         this.setState({ originalText: this.state.typingTexts[count].originalText });
         this.setState({ kanaText: this.state.typingTexts[count].kanaText });
-
         this.setState({ typedText: this.state.challenges[count].typedRoman });
         this.setState({ remainingText: this.state.challenges[count].remainingRoman })
     }
@@ -116,7 +131,6 @@ class TypingArea extends React.Component {
 
 
     render() {
-
         return (
             <div className='typing_area'>
                 <TextArea originalText={this.state.originalText} kanaText={this.state.kanaText} typedText={this.state.typedText} remainingText={this.state.remainingText} />

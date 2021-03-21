@@ -9,12 +9,6 @@ import TypingPage from './components/MainArea/TypingPage'
 import TextRegistration from './components/MainArea/TextRegistration'
 import getDefault from './util/getDefault';
 
-
-
-interface Props {
-  window?: () => Window;
-}
-
 type typingText = {
   originalText: string,
   kanaText: string

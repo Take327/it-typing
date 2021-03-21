@@ -15,6 +15,7 @@ type Props = {
 const useStyles = makeStyles({
     root: {
         minWidth: 275,
+        height:150
     }
 });
 
