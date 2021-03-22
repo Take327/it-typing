@@ -66,7 +66,6 @@ const App: React.FC = () => {
         <main className={classes.content}>
           <Route path='/typing' render={() => <TypingPage typingText={typing}/>} />
           <Route path='/TextRegistration' component={TextRegistration} />
-          {typing.toString()}
         </main>
       </Router>
     </div>
