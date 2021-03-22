@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(3),
       backgroundColor: '#edf7ff',
       height: '100vh',
-      paddingTop: '60px'
+      paddingTop: '70px'
     },
     typography: {
       height: '100vh',
@@ -44,7 +44,7 @@ const App: React.FC = () => {
   const initialTyping = (json: typingText | undefined) => {
     if (json !== undefined) {
       setTyping(json)
-      console.log(json)
+      console.log(JSON.stringify(json))
     }
   }
 
@@ -65,7 +65,7 @@ const App: React.FC = () => {
         <SideNavi />
         <main className={classes.content}>
           <Route path='/typing' render={() => <TypingPage typingText={typing}/>} />
-          <Route path='/TextRegistration' component={TextRegistration} />
+          <Route path='/TextRegistration' render={() => <TextRegistration typingText={typing}/>} />
         </main>
       </Router>
     </div>

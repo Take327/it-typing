@@ -3,7 +3,6 @@ import TextArea from './TextArea/TextArea';
 import Keyboard from './keyboard/Keyboard';
 import './TypingArea.css';
 import { Sentence } from 'typing-ja';
-import getDefault from '../../util/getDefault';
 
 
 class TypingArea extends React.Component {
