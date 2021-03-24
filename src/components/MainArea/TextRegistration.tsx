@@ -16,6 +16,7 @@ const TextRegistration = (props: Props) => {
         { field: 'kanaText', headerName: 'カナテキスト', width: 250 },
     ];
 
+    
     const rows = [
         {
             id: 1,
