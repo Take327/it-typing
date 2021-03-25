@@ -10,6 +10,7 @@ import TextRegistration from './components/MainArea/TextRegistration'
 import getDefault from './util/getDefault';
 
 type typingText = {
+  id: number,
   originalText: string,
   kanaText: string
 }[]
@@ -64,8 +65,8 @@ const App: React.FC = () => {
         <Header />
         <SideNavi />
         <main className={classes.content}>
-          <Route path='/typing' render={() => <TypingPage typingText={typing}/>} />
-          <Route path='/TextRegistration' render={() => <TextRegistration typingText={typing}/>} />
+          <Route path='/typing' render={() => <TypingPage typingText={typing} />} />
+          <Route path='/TextRegistration' render={() => <TextRegistration typingText={typing} />} />
         </main>
       </Router>
     </div>

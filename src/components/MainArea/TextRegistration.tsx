@@ -3,6 +3,7 @@ import { DataGrid, ValueGetterParams } from '@material-ui/data-grid';
 
 type Props = {
     typingText: {
+        id: number,
         originalText: string,
         kanaText: string
     }[]
@@ -16,7 +17,10 @@ const TextRegistration = (props: Props) => {
         { field: 'kanaText', headerName: 'カナテキスト', width: 250 },
     ];
 
-    
+    const rows = props.typingText
+
+
+    /*
     const rows = [
         {
             id: 1,
@@ -39,6 +43,7 @@ const TextRegistration = (props: Props) => {
             originalText: "石の上にも三年"
         }
     ]
+    */
 
     return (
         <div style={{ height: 400, width: '100%', backgroundColor: '#FFF' }}>

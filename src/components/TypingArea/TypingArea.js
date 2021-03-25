@@ -23,13 +23,6 @@ class TypingArea extends React.Component {
 
     }
 
-    /*
-    componentDidUpdate(prevProps) {
-        console.log("componentDidUpdate",prevProps.typingText)
-            this.startText(prevProps.typingText)
-    }
-    */
-
     componentDidMount() {
 
         (async () => {
