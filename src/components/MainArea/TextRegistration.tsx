@@ -1,5 +1,7 @@
 import * as React from 'react';
-import { DataGrid, ValueGetterParams } from '@material-ui/data-grid';
+import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+
 
 type Props = {
     typingText: {
@@ -9,20 +11,44 @@ type Props = {
     }[]
 }
 
+const useStyles = makeStyles({
+    root: {
+        minWidth: 275,
+        height: "100%",
+        padding:"20px",
+        "& table": {
+            border: "1px #000000 solid;",
+        },
+        "& th": {
+            border: "1px #000000 solid;",
+        },
+        "& td": {
+            border: "1px #000000 solid;",
+        },
+    },
+});
+
 const TextRegistration = (props: Props) => {
 
-    const columns = [
-        { field: 'id', headerName: 'ID', width: 130 },
-        { field: 'originalText', headerName: 'オリジナルテキスト', width: 250 },
-        { field: 'kanaText', headerName: 'カナテキスト', width: 250 },
-    ];
+    const classes = useStyles();
 
     const rows = props.typingText
 
     return (
-        <div style={{ height: 400, width: '100%', backgroundColor: '#FFF' }}>
-            <DataGrid rows={rows} columns={columns} pageSize={5} checkboxSelection />
-        </div>
+        <Card className={classes.root} variant="outlined">
+            <table>
+                <tr>
+                    <th colSpan={2}>id</th><th>OriginalText</th>
+                </tr>
+                <tr><th>KanaText</th></tr>
+                {rows.map((data) => (
+                    <tr>
+                        <td>{data.id}</td><td><input type="text" value={data.originalText} /></td><td><input type="text" value={data.kanaText} /></td>
+                    </tr>
+                ))}
+            </table>
+        </Card>
+
     )
 }
 
