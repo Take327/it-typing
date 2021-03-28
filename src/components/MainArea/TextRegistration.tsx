@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useDebugValue, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import IconButton from '@material-ui/core/IconButton';
@@ -49,9 +49,41 @@ const TextRegistration = (props: Props) => {
 
     const [row, setRow] = useState(props.typingText);
 
-    const handleChange = (e: HTMLInputElement) => {
-        const targetId: string = e.id;
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const targetId: number = Number(e.target.id.replace(/^.+_/, ''));
+        console.log(targetId)
 
+        let targetData = row.find((value) => {
+           return value.id === targetId
+        });
+
+        console.log(targetData);
+
+        if (targetData) {
+            const target = e.target.id.replace(/_.+$/, '');
+            switch (target) {
+                case 'originalText':
+                    targetData.originalText = e.target.value
+                    break;
+                case 'kanaText':
+                    targetData.kanaText = e.target.value
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        const resultArry = row.map((value) => {
+            if (value.id === targetData?.id) {
+                return targetData
+            } else {
+                return value
+            }
+        });
+
+        console.log(...resultArry);
+
+        setRow(resultArry);
 
     }
 
@@ -61,28 +93,11 @@ const TextRegistration = (props: Props) => {
                 <tr>
                     <th>id</th><th>OriginalText</th><th>KanaText</th><th></th>
                 </tr>
-                {rows.map((data) => (
-                    <tr>
-                        <td>{data.id}</td>
-                        <td><TextField id="standard-basic" className={classes.textField} value={data.originalText} /></td>
-                        <td><TextField id="standard-basic" className={classes.textField} value={data.kanaText} /></td>
-                        <td>
-                            <IconButton aria-label="delete">
-                                <DeleteIcon />
-                            </IconButton>
-                        </td>
-                    </tr>
-                ))}
-            </table>
-            <table>
-                <tr>
-                    <th>id</th><th>OriginalText</th><th>KanaText</th><th></th>
-                </tr>
                 {row.map((data) => (
                     <tr>
                         <td>{data.id}</td>
-                        <td><TextField id={`originalText_${data.id}`} className={classes.textField} value={data.originalText} /></td>
-                        <td><TextField id={`kanaText_${data.id}`} className={classes.textField} value={data.kanaText} /></td>
+                        <td><TextField id={`originalText_${data.id}`} className={classes.textField} value={data.originalText} onChange={handleChange} /></td>
+                        <td><TextField id={`kanaText_${data.id}`} className={classes.textField} value={data.kanaText} onChange={handleChange}/></td>
                         <td>
                             <IconButton aria-label="delete">
                                 <DeleteIcon />
