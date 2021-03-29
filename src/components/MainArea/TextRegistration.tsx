@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useDebugValue, useState } from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import IconButton from '@material-ui/core/IconButton';
@@ -51,10 +51,8 @@ const TextRegistration = (props: Props) => {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const targetId: number = Number(e.target.id.replace(/^.+_/, ''));
-        console.log(targetId)
-
         let targetData = row.find((value) => {
-           return value.id === targetId
+            return value.id === targetId
         });
 
         console.log(targetData);
@@ -72,7 +70,6 @@ const TextRegistration = (props: Props) => {
                     break;
             }
         }
-
         const resultArry = row.map((value) => {
             if (value.id === targetData?.id) {
                 return targetData
@@ -81,7 +78,19 @@ const TextRegistration = (props: Props) => {
             }
         });
 
-        console.log(...resultArry);
+        setRow(resultArry);
+    }
+
+    const rowDelete = (targetId: number) => {
+        let targetData = row.find((value) => {
+            return value.id === targetId
+        });
+        console.log(targetData);
+
+        const resultArry = row.filter((value) => {
+            return value !== targetData
+        })
+
 
         setRow(resultArry);
 
@@ -97,10 +106,10 @@ const TextRegistration = (props: Props) => {
                     <tr>
                         <td>{data.id}</td>
                         <td><TextField id={`originalText_${data.id}`} className={classes.textField} value={data.originalText} onChange={handleChange} /></td>
-                        <td><TextField id={`kanaText_${data.id}`} className={classes.textField} value={data.kanaText} onChange={handleChange}/></td>
+                        <td><TextField id={`kanaText_${data.id}`} className={classes.textField} value={data.kanaText} onChange={handleChange} /></td>
                         <td>
-                            <IconButton aria-label="delete">
-                                <DeleteIcon />
+                            <IconButton aria-label="delete" onClick={() => rowDelete(data.id)} name={`delete_${data.id}`}>
+                                <DeleteIcon name={`delete_${data.id}`} />
                             </IconButton>
                         </td>
                     </tr>
