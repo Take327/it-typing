@@ -82,17 +82,20 @@ const TextRegistration = (props: Props) => {
     }
 
     const rowDelete = (targetId: number) => {
-        let targetData = row.find((value) => {
-            return value.id === targetId
-        });
-        console.log(targetData);
+        if (confirm("削除してもいいですか？")) {
+            let targetData = row.find((value) => {
+                return value.id === targetId
+            });
+            console.log(targetData);
 
-        const resultArry = row.filter((value) => {
-            return value !== targetData
-        })
+            const resultArry = row.filter((value) => {
+                return value !== targetData
+            })
 
 
-        setRow(resultArry);
+            setRow(resultArry);
+        }
+
 
     }
 
