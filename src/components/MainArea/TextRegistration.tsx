@@ -5,6 +5,8 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import TextField from '@material-ui/core/TextField';
 
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
 
 type Props = {
     typingText: {
@@ -36,6 +38,9 @@ const useStyles = makeStyles({
     },
     textField: {
         width: "300px"
+    },
+    addButton: {
+        backgroundColor: '#81d8d0'
     }
 });
 
@@ -92,32 +97,34 @@ const TextRegistration = (props: Props) => {
                 return value !== targetData
             })
 
-
             setRow(resultArry);
         }
-
-
     }
 
     return (
         <Card className={classes.root} variant="outlined">
-            <table>
-                <tr>
-                    <th>id</th><th>OriginalText</th><th>KanaText</th><th></th>
-                </tr>
-                {row.map((data) => (
+            <div>
+                <table>
                     <tr>
-                        <td>{data.id}</td>
-                        <td><TextField id={`originalText_${data.id}`} className={classes.textField} value={data.originalText} onChange={handleChange} /></td>
-                        <td><TextField id={`kanaText_${data.id}`} className={classes.textField} value={data.kanaText} onChange={handleChange} /></td>
-                        <td>
-                            <IconButton aria-label="delete" onClick={() => rowDelete(data.id)} name={`delete_${data.id}`}>
-                                <DeleteIcon name={`delete_${data.id}`} />
-                            </IconButton>
-                        </td>
+                        <th>id</th><th>OriginalText</th><th>KanaText</th><th></th>
                     </tr>
-                ))}
-            </table>
+                    {row.map((data) => (
+                        <tr>
+                            <td>{data.id}</td>
+                            <td><TextField id={`originalText_${data.id}`} className={classes.textField} value={data.originalText} onChange={handleChange} /></td>
+                            <td><TextField id={`kanaText_${data.id}`} className={classes.textField} value={data.kanaText} onChange={handleChange} /></td>
+                            <td>
+                                <IconButton aria-label="delete" onClick={() => rowDelete(data.id)} name={`delete_${data.id}`}>
+                                    <DeleteIcon name={`delete_${data.id}`} />
+                                </IconButton>
+                            </td>
+                        </tr>
+                    ))}
+                </table>
+                <Fab className={classes.addButton} aria-label="add">
+                    <AddIcon color="action"/>
+                </Fab>
+            </div>
         </Card>
 
     )

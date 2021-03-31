@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import TypingPage from './components/MainArea/TypingPage'
 import TextRegistration from './components/MainArea/TextRegistration'
 import getDefault from './util/getDefault';
+import CircularProgress from '@material-ui/core/CircularProgress'  // 追加
 
 type typingText = {
   id: number,
@@ -67,6 +68,7 @@ const App: React.FC = () => {
         <main className={classes.content}>
           <Route path='/typing' render={() => <TypingPage typingText={typing} />} />
           <Route path='/TextRegistration' render={() => <TextRegistration typingText={typing} />} />
+          {!loadStatus && (<CircularProgress />)}
         </main>
       </Router>
     </div>
