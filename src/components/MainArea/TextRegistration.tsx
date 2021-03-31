@@ -7,6 +7,8 @@ import TextField from '@material-ui/core/TextField';
 
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import { cyan } from '@material-ui/core/colors';
 
 type Props = {
     typingText: {
@@ -41,6 +43,12 @@ const useStyles = makeStyles({
     },
     addButton: {
         backgroundColor: '#81d8d0'
+    },
+    fabGreen: {
+        backgroundColor: '#81d8d0',
+        '&:hover': {
+            backgroundColor: '#fadbda',
+        },
     }
 });
 
@@ -120,9 +128,10 @@ const TextRegistration = (props: Props) => {
                             </td>
                         </tr>
                     ))}
+                    <AddCircleOutlineIcon />
                 </table>
-                <Fab className={classes.addButton} aria-label="add">
-                    <AddIcon color="action"/>
+                <Fab className={classes.fabGreen} aria-label="add">
+                    <AddIcon color="action" />
                 </Fab>
             </div>
         </Card>
