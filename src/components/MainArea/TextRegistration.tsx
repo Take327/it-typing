@@ -9,6 +9,7 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { cyan } from '@material-ui/core/colors';
+import './TextRegistration.css';
 
 type TypingText = {
     id: number,
@@ -24,28 +25,11 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     root: {
         minWidth: 275,
         height: "100%",
-        padding: "20px",
-        "& table": {
-            borderCollapse: "collapse;",
-            innerWidth: 500
-        },
-        "& th": {
-            border: "1px #000000 solid;",
-            width: "aute",
-            minWidth: "50px"
-        },
-        "& td": {
-            border: "1px #000000 solid;",
-
-        },
-        "& input[type=text]": {
-            width: "200px"
-        }
+        padding: "20px"
     },
     textField: {
         marginLeft: theme.spacing(1),
         marginRight: theme.spacing(1),
-        width: 'aute',
     },
     addButton: {
         backgroundColor: '#81d8d0'
@@ -57,7 +41,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
         },
     }
 }));
-
 
 
 const TextRegistration = (props: Props) => {
@@ -135,13 +118,13 @@ const TextRegistration = (props: Props) => {
             <div>
                 <table>
                     <tr>
-                        <th>id</th><th>OriginalText</th><th>KanaText</th><th></th>
+                        <th>id</th><th>オリジナルテキスト</th><th>カナテキスト</th><th></th>
                     </tr>
                     {row.map((data) => (
                         <tr>
                             <td>{data.id}</td>
-                            <td><TextField id={`originalText_${data.id}`} className={classes.textField} value={data.originalText} onChange={handleChange} fullWidth /></td>
-                            <td><TextField id={`kanaText_${data.id}`} className={classes.textField} value={data.kanaText} onChange={handleChange} fullWidth /></td>
+                            <td><TextField id={`originalText_${data.id}`} className={classes.textField} value={data.originalText} onChange={handleChange} fullWidth/></td>
+                            <td><TextField id={`kanaText_${data.id}`} className={classes.textField} value={data.kanaText} onChange={handleChange} fullWidth/></td>
                             <td>
                                 <IconButton aria-label="delete" onClick={() => rowDelete(data.id)} name={`delete_${data.id}`}>
                                     <DeleteIcon name={`delete_${data.id}`} />
