@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -10,15 +10,17 @@ import AddIcon from '@material-ui/icons/Add';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { cyan } from '@material-ui/core/colors';
 
-type Props = {
-    typingText: {
-        id: number,
-        originalText: string,
-        kanaText: string
-    }[]
+type TypingText = {
+    id: number,
+    originalText: string,
+    kanaText: string
 }
 
-const useStyles = makeStyles({
+type Props = {
+    typingText: TypingText[]
+}
+
+const useStyles = makeStyles((theme: Theme) => createStyles({
     root: {
         minWidth: 275,
         height: "100%",
@@ -29,17 +31,21 @@ const useStyles = makeStyles({
         },
         "& th": {
             border: "1px #000000 solid;",
+            width: "aute",
+            minWidth: "50px"
         },
         "& td": {
             border: "1px #000000 solid;",
-            width: "500px"
+
         },
         "& input[type=text]": {
             width: "200px"
         }
     },
     textField: {
-        width: "300px"
+        marginLeft: theme.spacing(1),
+        marginRight: theme.spacing(1),
+        width: 'aute',
     },
     addButton: {
         backgroundColor: '#81d8d0'
@@ -50,7 +56,7 @@ const useStyles = makeStyles({
             backgroundColor: '#fadbda',
         },
     }
-});
+}));
 
 
 
@@ -109,6 +115,21 @@ const TextRegistration = (props: Props) => {
         }
     }
 
+    const rowAdd = () => {
+        const idArry: number[] = row.map((value) => { return value.id; })
+        const nextId: number = Math.max(...idArry) + 1;
+
+        const nextTypingText: TypingText = { id: nextId, originalText: '', kanaText: '' }
+
+        const resultArry = row.map((value) => { return value });
+
+        resultArry.push(nextTypingText);
+
+        setRow(resultArry);
+
+
+    }
+
     return (
         <Card className={classes.root} variant="outlined">
             <div>
@@ -119,8 +140,8 @@ const TextRegistration = (props: Props) => {
                     {row.map((data) => (
                         <tr>
                             <td>{data.id}</td>
-                            <td><TextField id={`originalText_${data.id}`} className={classes.textField} value={data.originalText} onChange={handleChange} /></td>
-                            <td><TextField id={`kanaText_${data.id}`} className={classes.textField} value={data.kanaText} onChange={handleChange} /></td>
+                            <td><TextField id={`originalText_${data.id}`} className={classes.textField} value={data.originalText} onChange={handleChange} fullWidth /></td>
+                            <td><TextField id={`kanaText_${data.id}`} className={classes.textField} value={data.kanaText} onChange={handleChange} fullWidth /></td>
                             <td>
                                 <IconButton aria-label="delete" onClick={() => rowDelete(data.id)} name={`delete_${data.id}`}>
                                     <DeleteIcon name={`delete_${data.id}`} />
@@ -128,9 +149,8 @@ const TextRegistration = (props: Props) => {
                             </td>
                         </tr>
                     ))}
-                    <AddCircleOutlineIcon />
                 </table>
-                <Fab className={classes.fabGreen} aria-label="add">
+                <Fab className={classes.fabGreen} aria-label="add" onClick={rowAdd}>
                     <AddIcon color="action" />
                 </Fab>
             </div>
