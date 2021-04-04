@@ -7,6 +7,7 @@ import TextField from '@material-ui/core/TextField';
 
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
+import DoneIcon from '@material-ui/icons/Done';
 import './TextRegistration.css';
 import getDefault from '../../util/getDefault';
 import Backdrop from '@material-ui/core/Backdrop';
@@ -38,6 +39,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
         backgroundColor: '#81d8d0'
     },
     fabGreen: {
+        margin: '10px',
         backgroundColor: '#81d8d0',
         '&:hover': {
             backgroundColor: '#fadbda',
@@ -132,11 +134,15 @@ const TextRegistration = () => {
         setRow(resultArry);
     }
 
+    const postAction =()=>{
+        alert("登録しました")
+    }
+
     return (
         <Card className={classes.root} variant="outlined">
             {(() => {
                 if (loadStatus) {
-                    return (
+                    return (<>
                         <div>
                             <table>
                                 <tr>
@@ -155,10 +161,16 @@ const TextRegistration = () => {
                                     </tr>
                                 ))}
                             </table>
+                        </div>
+                        <div className="addButton">
+                            <Fab className={classes.fabGreen} aria-label="done" onClick={postAction}>
+                                <DoneIcon color="action" />
+                            </Fab>
                             <Fab className={classes.fabGreen} aria-label="add" onClick={rowAdd}>
                                 <AddIcon color="action" />
                             </Fab>
                         </div>
+                    </>
                     )
                 }
             })()}

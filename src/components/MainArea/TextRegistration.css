@@ -27,3 +27,13 @@ tr:nth-child(2n+1) {
     background: #eee;
 }
 
+.addButton {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: absolute;
+    top: 70%;
+    left: 90%;
+}
