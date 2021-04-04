@@ -20,7 +20,10 @@ td {
     padding: 5px;
     border-bottom: 1px solid #B0C4DE;
 	border-left: 1px solid #B0C4DE;
+    width: auto;
+
 }
 tr:nth-child(2n+1) {
     background: #eee;
 }
+

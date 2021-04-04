@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './App.css';
 import { CssBaseline } from '@material-ui/core';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
@@ -7,15 +7,6 @@ import Header from './components/Menu/Header'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import TypingPage from './components/MainArea/TypingPage'
 import TextRegistration from './components/MainArea/TextRegistration'
-import getDefault from './util/getDefault';
-import CircularProgress from '@material-ui/core/CircularProgress'  // 追加
-
-type typingText = {
-  id: number,
-  originalText: string,
-  kanaText: string
-}[]
-
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -39,24 +30,6 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const App: React.FC = () => {
-
-  const [typing, setTyping] = useState<typingText>([]);
-  const [loadStatus, setLoadStatus] = useState<boolean>(false);
-
-  const initialTyping = (json: typingText | undefined) => {
-    if (json !== undefined) {
-      setTyping(json)
-      console.log(JSON.stringify(json))
-    }
-  }
-
-  useEffect(() => {
-    if (!loadStatus) {
-      getDefault().then(json => initialTyping(json))
-      setLoadStatus(true);
-    }
-  });
-
   const classes = useStyles();
 
   return (
@@ -66,9 +39,8 @@ const App: React.FC = () => {
         <Header />
         <SideNavi />
         <main className={classes.content}>
-          <Route path='/typing' render={() => <TypingPage typingText={typing} />} />
-          <Route path='/TextRegistration' render={() => <TextRegistration typingText={typing} />} />
-          {!loadStatus && (<CircularProgress />)}
+          <Route path='/typing' render={() => <TypingPage />} />
+          <Route path='/TextRegistration' render={() => <TextRegistration />} />
         </main>
       </Router>
     </div>
