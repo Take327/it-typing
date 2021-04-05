@@ -12,6 +12,7 @@ import './TextRegistration.css';
 import getDefault from '../../util/getDefault';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import postDefault from '../../util/postDefault'
 
 
 type TypingText = {
@@ -20,20 +21,22 @@ type TypingText = {
     kanaText: string
 }
 
-type Props = {
-    typingText: TypingText[]
+type Error = {
+    id: number,
+    message: string
 }
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     root: {
         minWidth: 275,
         height: "100%",
-        padding: "20px"
+        padding: "20px",
+        overflow: "scroll"
     },
     textField: {
         marginLeft: theme.spacing(1),
         marginRight: theme.spacing(1),
-        width: "400px"
+        width: "25vw"
     },
     addButton: {
         backgroundColor: '#81d8d0'
@@ -80,8 +83,6 @@ const TextRegistration = () => {
             return value.id === targetId
         });
 
-        console.log(targetData);
-
         if (targetData) {
             const target = e.target.id.replace(/_.+$/, '');
             switch (target) {
@@ -107,12 +108,10 @@ const TextRegistration = () => {
     }
 
     const rowDelete = (targetId: number) => {
-        if (confirm("削除してもいいですか？")) {
-            let targetData = row.find((value) => {
+        if (confirm(`ID:${targetId} 削除してもいいですか？`)) {
+            const targetData = row.find((value) => {
                 return value.id === targetId
             });
-            console.log(targetData);
-
             const resultArry = row.filter((value) => {
                 return value !== targetData
             })
@@ -134,8 +133,29 @@ const TextRegistration = () => {
         setRow(resultArry);
     }
 
-    const postAction =()=>{
-        alert("登録しました")
+    const postAction = () => {
+        const reg = new RegExp(/[!"#$%&'()\*\+\-\.,\/:;<=>?@\[\\\]^_`{|}~]/g);
+        const errorArry: string[] = [];
+        row.forEach((value) => {
+            if (value.originalText === '') {
+                errorArry.push(`ID:${value.id} オリジナルテキストが入力されていません。`);
+            }
+            if (value.kanaText === '') {
+                errorArry.push(`ID:${value.id} カナテキストが入力されていません。`);
+            } else if (reg.test(value.kanaText)) {
+                errorArry.push(`ID:${value.id} [半角英数]及び[ひらがな][カタカナ]以外はカナテキストへ入力できません`);
+            }
+        });
+
+        if (errorArry.length > 0) {
+            const alertText = errorArry.join('\n')
+            alert(alertText)
+        } else {
+
+            postDefault(row).then(res => alert("登録しました"))
+
+        }
+
     }
 
     return (
@@ -143,10 +163,10 @@ const TextRegistration = () => {
             {(() => {
                 if (loadStatus) {
                     return (<>
-                        <div>
+                        <div className="tableArea">
                             <table>
                                 <tr>
-                                    <th className="tableHead">行No</th><th className="tableHead">オリジナルテキスト</th><th className="tableHead">カナテキスト</th><th className="tableHead"></th>
+                                    <th className="tableHead1">ID</th><th className="tableHead2">オリジナルテキスト</th><th className="tableHead3">カナテキスト</th><th className="tableHead4"></th>
                                 </tr>
                                 {row.map((data, index) => (
                                     <tr>
