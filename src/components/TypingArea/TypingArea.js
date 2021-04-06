@@ -81,9 +81,6 @@ class TypingArea extends React.Component {
             });
 
             this.setState({ challenges: challengeArry });
-
-            console.log(this.state.challenges[0])
-
             this.setState({ typedText: this.state.challenges[0].typedRoman });
             this.setState({ remainingText: this.state.challenges[0].remainingRoman })
         }
@@ -94,7 +91,6 @@ class TypingArea extends React.Component {
 
 
     typingAction(key, count) {
-        console.log(count, this.state.challenges[count]);
         if (this.state.challenges[count].input(key)) {
             this.setState({ typedText: this.state.challenges[count].typedRoman });
             this.setState({ remainingText: this.state.challenges[count].remainingRoman });
