@@ -37,7 +37,7 @@ const App: React.FC = () => {
       <CssBaseline />
       <Router>
         <Header />
-        <SideNavi />
+        <SideNavi loginState={true}/>
         <main className={classes.content}>
           <Route path='/typing' render={() => <TypingPage />} />
           <Route path='/TextRegistration' render={() => <TextRegistration />} />

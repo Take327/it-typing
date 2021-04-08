@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
@@ -9,8 +9,9 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import SaveIcon from '@material-ui/icons/Save';
 import HomeIcon from '@material-ui/icons/Home';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import { NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -36,7 +37,11 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-const SideMenu = () => {
+type Props = {
+    loginState: boolean
+}
+
+const SideMenu: React.FC<Props> = ({ loginState }) => {
     const classes = useStyles();
 
     const current = {
@@ -83,6 +88,33 @@ const SideMenu = () => {
                                     <ListItemText primary={'テキスト登録'} />
                                 </ListItem>
                             </NavLink>
+
+                            {(() => {
+                                if (!loginState) {
+                                    return (
+                                        <NavLink exact to='/' activeStyle={current}>
+                                            <ListItem button key={'ログイン'}>
+                                                <ListItemIcon>
+                                                    <AccountCircleIcon />
+                                                </ListItemIcon>
+                                                <ListItemText primary={'ログイン'} />
+                                            </ListItem>
+                                        </NavLink>
+                                    )
+                                } else {
+                                    return (
+                                        <NavLink exact to='/' activeStyle={current}>
+                                            <ListItem button key={'ログアウト'}>
+                                                <ListItemIcon>
+                                                    <AccountCircleIcon />
+                                                </ListItemIcon>
+                                                <ListItemText primary={'ログアウト'} />
+                                            </ListItem>
+                                        </NavLink>
+                                    )
+                                }
+                            })()}
+
                         </List>
                         <Divider />
                     </div>
