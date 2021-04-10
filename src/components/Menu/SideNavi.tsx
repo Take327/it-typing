@@ -92,7 +92,7 @@ const SideMenu: React.FC<Props> = ({ loginState }) => {
                             {(() => {
                                 if (!loginState) {
                                     return (
-                                        <NavLink exact to='/' activeStyle={current}>
+                                        <NavLink exact to='/Signup' activeStyle={current}>
                                             <ListItem button key={'ログイン'}>
                                                 <ListItemIcon>
                                                     <AccountCircleIcon />

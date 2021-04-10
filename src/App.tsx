@@ -7,6 +7,7 @@ import Header from './components/Menu/Header'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import TypingPage from './components/MainArea/TypingPage'
 import TextRegistration from './components/MainArea/TextRegistration'
+import Signup from './components/Signup/Signup'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -37,10 +38,11 @@ const App: React.FC = () => {
       <CssBaseline />
       <Router>
         <Header />
-        <SideNavi loginState={true}/>
+        <SideNavi loginState={false} />
         <main className={classes.content}>
           <Route path='/typing' render={() => <TypingPage />} />
           <Route path='/TextRegistration' render={() => <TextRegistration />} />
+          <Route path='/Signup' render={() => <Signup />} />
         </main>
       </Router>
     </div>
