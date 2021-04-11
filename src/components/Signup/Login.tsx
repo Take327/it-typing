@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link, useHistory } from 'react-router-dom'
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Card from "@material-ui/core/Card";
@@ -6,19 +7,17 @@ import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import CardHeader from "@material-ui/core/CardHeader";
 import Button from "@material-ui/core/Button";
-import { Link } from 'react-router-dom'
 import { app } from '../../config/firebase'
+
 
 type State = {
     emailCheck: boolean,
     passwordCheck: boolean,
-    passwordconfirmCheck: boolean
 }
 
 const initialState: State = {
     emailCheck: true,
     passwordCheck: true,
-    passwordconfirmCheck: true
 }
 
 
@@ -32,7 +31,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     card: {
         marginTop: theme.spacing(10),
         width: 400
-
     },
     header: {
         textAlign: "center",
@@ -47,14 +45,20 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 }))
 
-const Signup: React.FC = () => {
+type Props = {
+    changeLoginState: Function
+}
+
+const Login: React.FC<Props> = ({ changeLoginState }) => {
+    const history = useHistory()
+
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
-    const [passwordconfirm, setPasswordconfirm] = useState<string>('');
     const [state, setStates] = useState<State>(initialState);
     const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(true);
 
     const classes = useStyles();
+
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         switch (e.target.id) {
@@ -63,9 +67,6 @@ const Signup: React.FC = () => {
                 break;
             case 'password':
                 setPassword(e.target.value);
-                break;
-            case 'password-confirm':
-                setPasswordconfirm(e.target.value);
                 break;
             default:
                 break;
@@ -87,29 +88,6 @@ const Signup: React.FC = () => {
                 } else {
                     nowState.emailCheck = true;
                 }
-
-                break;
-            case 'password':
-                if (password !== '' && passwordconfirm !== '') {
-                    if (password === passwordconfirm) {
-                        nowState.passwordconfirmCheck = true;
-                    } else {
-                        nowState.passwordconfirmCheck = false;
-                    }
-                } else {
-                    nowState.passwordconfirmCheck = true;
-                }
-                break;
-            case 'password-confirm':
-                if (password !== '' && passwordconfirm !== '') {
-                    if (password === passwordconfirm) {
-                        nowState.passwordconfirmCheck = true;
-                    } else {
-                        nowState.passwordconfirmCheck = false;
-                    }
-                } else {
-                    nowState.passwordconfirmCheck = true;
-                }
                 break;
             default:
                 break;
@@ -119,8 +97,8 @@ const Signup: React.FC = () => {
     }
 
     const inputCheck = (state: State) => {
-        if (email !== '' && password !== '' && passwordconfirm !== '') {
-            if (state.emailCheck && state.passwordCheck && state.passwordconfirmCheck) {
+        if (email !== '' && password !== '') {
+            if (state.emailCheck && state.passwordCheck) {
                 setIsButtonDisabled(false);
             } else {
                 setIsButtonDisabled(true);
@@ -135,10 +113,12 @@ const Signup: React.FC = () => {
         inputCheck(state);
     }, [state])
 
-    const signup = async (email: string, password: string) => {
+
+    const login = async (email: string, password: string) => {
         try {
-            await app.auth().createUserWithEmailAndPassword(email, password);
-            alert('登録されました')
+            await app.auth().signInWithEmailAndPassword(email, password);
+            changeLoginState(true);
+            history.push('/')
         } catch (error) {
             alert(error);
         }
@@ -148,7 +128,7 @@ const Signup: React.FC = () => {
     return (
         <form className={classes.container} noValidate autoComplete="off">
             <Card className={classes.card}>
-                <CardHeader className={classes.header} title="新規登録" />
+                <CardHeader className={classes.header} title="ログイン" />
                 <CardContent className={classes.cardContent}>
                     <TextField
                         error={!state.emailCheck}
@@ -172,25 +152,14 @@ const Signup: React.FC = () => {
                         onChange={handleChange}
                         onBlur={handleError}
                     />
-                    <TextField
-                        error={!state.passwordconfirmCheck}
-                        fullWidth
-                        id="password-confirm"
-                        type="password"
-                        label="パスワード再入力"
-                        placeholder="パスワード再入力"
-                        margin="normal"
-                        onChange={handleChange}
-                        onBlur={handleError}
-                    />
-                    <div>アカウントをお持ちの方は<Link to="/login">こちら</Link></div>
+                    <div>新規登録は<Link to="/signup">こちら</Link></div>
                 </CardContent>
                 <CardActions>
-                    <Button variant="contained" color="primary" disabled={isButtonDisabled} fullWidth onClick={() => signup(email, password)}>Signup</Button>
+                    <Button variant="contained" color="primary" disabled={isButtonDisabled} fullWidth onClick={() => login(email, password)}>Login</Button>
                 </CardActions>
             </Card>
         </form>
-    );
-};
+    )
+}
 
-export default Signup
+export default Login

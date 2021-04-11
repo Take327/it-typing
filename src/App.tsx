@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import { CssBaseline } from '@material-ui/core';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
@@ -7,6 +7,7 @@ import Header from './components/Menu/Header'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import TypingPage from './components/MainArea/TypingPage'
 import TextRegistration from './components/MainArea/TextRegistration'
+import Login from './components/Signup/Login'
 import Signup from './components/Signup/Signup'
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -32,17 +33,23 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const App: React.FC = () => {
   const classes = useStyles();
+  const [loginState, setLoginState] = useState<boolean>(false);
+
+  const changeLoginState = (state: boolean) => {
+    setLoginState(state);
+  }
 
   return (
     <div className={classes.root}>
       <CssBaseline />
       <Router>
         <Header />
-        <SideNavi loginState={false} />
+        <SideNavi loginState={loginState} />
         <main className={classes.content}>
           <Route path='/typing' render={() => <TypingPage />} />
           <Route path='/TextRegistration' render={() => <TextRegistration />} />
-          <Route path='/Signup' render={() => <Signup />} />
+          <Route path='/Login' render={() => <Login changeLoginState={changeLoginState}/>} />
+          <Route path='/Signup' component={Signup} />
         </main>
       </Router>
     </div>
