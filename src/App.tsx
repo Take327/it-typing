@@ -44,11 +44,11 @@ const App: React.FC = () => {
       <CssBaseline />
       <Router>
         <Header />
-        <SideNavi loginState={loginState} />
+        <SideNavi loginState={loginState} changeLoginState={changeLoginState} />
         <main className={classes.content}>
           <Route path='/typing' render={() => <TypingPage />} />
           <Route path='/TextRegistration' render={() => <TextRegistration />} />
-          <Route path='/Login' render={() => <Login changeLoginState={changeLoginState}/>} />
+          <Route path='/Login' render={() => <Login changeLoginState={changeLoginState} />} />
           <Route path='/Signup' component={Signup} />
         </main>
       </Router>

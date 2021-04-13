@@ -12,6 +12,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { NavLink } from 'react-router-dom';
+import { logout } from '../../util/logout'
 
 const drawerWidth = 240;
 
@@ -38,16 +39,26 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 type Props = {
-    loginState: boolean
+    loginState: boolean,
+    changeLoginState: Function
 }
 
-const SideMenu: React.FC<Props> = ({ loginState }) => {
+const SideMenu: React.FC<Props> = ({ loginState, changeLoginState }) => {
     const classes = useStyles();
 
     const current = {
         color: 'blue',
         textDecoration: 'underline',
     };
+
+    const handleLogoutClick = () => {
+        logout().then(() => {
+            alert('ログアウトしました');
+            changeLoginState(false);
+        }).catch((error) => {
+            alert('ログアウトに失敗しました。')
+        })
+    }
 
     return (
         <nav className={classes.drawer} aria-label="mailbox folders">
@@ -103,7 +114,7 @@ const SideMenu: React.FC<Props> = ({ loginState }) => {
                                     )
                                 } else {
                                     return (
-                                        <NavLink exact to='/' activeStyle={current}>
+                                        <NavLink exact to='/' activeStyle={current} onClick={handleLogoutClick}>
                                             <ListItem button key={'ログアウト'}>
                                                 <ListItemIcon>
                                                     <AccountCircleIcon />
