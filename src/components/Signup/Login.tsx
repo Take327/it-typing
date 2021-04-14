@@ -120,7 +120,7 @@ const Login: React.FC<Props> = ({ changeLoginState }) => {
             changeLoginState(true);
             history.push('/')
         } catch (error) {
-            alert(error);
+            alert('メールアドレス、またはパスワードが異なります。');
         }
     };
 
