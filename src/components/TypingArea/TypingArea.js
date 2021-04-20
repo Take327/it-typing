@@ -2,7 +2,7 @@ import React from 'react';
 import TextArea from './TextArea/TextArea';
 import Keyboard from './keyboard/Keyboard';
 import './TypingArea.css';
-import { Sentence } from '../../util/typing-ja';
+import { Sentence } from '../../util/typing-ja.js';
 
 
 class TypingArea extends React.Component {

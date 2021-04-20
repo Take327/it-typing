@@ -117,6 +117,9 @@ const Login: React.FC<Props> = ({ changeLoginState }) => {
     const login = async (email: string, password: string) => {
         try {
             await app.auth().signInWithEmailAndPassword(email, password);
+            const user = app.auth().currentUser
+
+            console.log(user?.uid)
             changeLoginState(true);
             history.push('/')
         } catch (error) {
