@@ -8,6 +8,7 @@ import CardHeader from "@material-ui/core/CardHeader";
 import Button from "@material-ui/core/Button";
 import { Link } from 'react-router-dom'
 import { app } from '../../config/firebase'
+import createUserTexts from '../../util/createUserTexts'
 
 type State = {
     emailCheck: boolean,
@@ -133,6 +134,7 @@ const Signup: React.FC = () => {
 
     useEffect(() => {
         inputCheck(state);
+        createUserTexts();
     }, [state])
 
     const signup = async (email: string, password: string) => {
