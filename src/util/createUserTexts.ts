@@ -7,6 +7,7 @@ const createUserTexts = async () => {
 
     const func = functions.httpsCallable("getDefaultTypingTexts");
 
+    //subブランチ
     console.log(func);
 
 }
