@@ -16,7 +16,7 @@ export const createUser = functions.https.onCall((data, context) => {
     }
 
     if (!context.auth) {
-        return ({ code: 202, message: 'ログインされていません' });
+        return ({ code: 401, message: 'ログインされていません' });
     } else {
         const userTypingTexts: UserTypingTexts = {
             uid: context.auth.uid,
@@ -26,9 +26,9 @@ export const createUser = functions.https.onCall((data, context) => {
         const db = admin.firestore();
 
         db.collection('typingTexts').doc('typingTexts').set(userTypingTexts).then(() => {
-            return ({ code: 202, message: 'ログインされていません' });
+            return ({ code: 200, message: 'ユーザータイピングテキストを作成しました。' });
         }).catch(() => {
-            return({code:202,message:'エラー'});
+            return({code:500,message:'エラー'});
         })
     }
 
