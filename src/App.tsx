@@ -47,7 +47,7 @@ const App: React.FC = () => {
         <SideNavi loginState={loginState} changeLoginState={changeLoginState} />
         <main className={classes.content}>
           <Route path='/typing' render={() => <TypingPage />} />
-          <Route path='/TextRegistration' render={() => <TextRegistration />} />
+          <Route path='/TextRegistration' render={() => <TextRegistration loginStatus={loginState} />} />
           <Route path='/Login' render={() => <Login changeLoginState={changeLoginState} />} />
           <Route path='/Signup' component={Signup} />
         </main>

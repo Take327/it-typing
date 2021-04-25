@@ -13,6 +13,7 @@ import getDefault from '../../util/getDefault';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import postDefault from '../../util/postDefault'
+import { getUserTexts } from '../../util/loginUserFunc/getUserTexts'
 
 
 type TypingText = {
@@ -54,8 +55,12 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     }
 }));
 
+type Props = {
+    loginStatus: boolean
+}
 
-const TextRegistration = () => {
+
+const TextRegistration: React.FC<Props> = ({ loginStatus }) => {
 
     const classes = useStyles();
 
@@ -70,10 +75,17 @@ const TextRegistration = () => {
 
     useEffect(() => {
         if (!loadStatus) {
-            getDefault().then(json => {
-                initialTyping(json)
-                setLoadStatus(true)
-            });
+            if (loginStatus) {
+                getUserTexts().then((data) => {
+                    initialTyping(data)
+                    setLoadStatus(true)
+                });
+            } else {
+                getDefault().then(json => {
+                    initialTyping(json)
+                    setLoadStatus(true)
+                });
+            }
         }
     });
 

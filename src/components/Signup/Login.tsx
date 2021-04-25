@@ -7,7 +7,9 @@ import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import CardHeader from "@material-ui/core/CardHeader";
 import Button from "@material-ui/core/Button";
-import { app } from '../../config/firebase'
+import { login } from '../../util/sign/login';
+
+
 
 
 type State = {
@@ -114,15 +116,11 @@ const Login: React.FC<Props> = ({ changeLoginState }) => {
     }, [state])
 
 
-    const login = async (email: string, password: string) => {
-        try {
-            await app.auth().signInWithEmailAndPassword(email, password);
-            const user = app.auth().currentUser
-
-            console.log(user?.uid)
+    const loginAction = async (email: string, password: string) => {
+        if (await login(email, password)) {
             changeLoginState(true);
             history.push('/')
-        } catch (error) {
+        } else {
             alert('メールアドレス、またはパスワードが異なります。');
         }
     };
@@ -158,7 +156,7 @@ const Login: React.FC<Props> = ({ changeLoginState }) => {
                     <div>新規登録は<Link to="/signup">こちら</Link></div>
                 </CardContent>
                 <CardActions>
-                    <Button variant="contained" color="primary" disabled={isButtonDisabled} fullWidth onClick={() => login(email, password)}>Login</Button>
+                    <Button variant="contained" color="primary" disabled={isButtonDisabled} fullWidth onClick={() => loginAction(email, password)}>Login</Button>
                 </CardActions>
             </Card>
         </form>

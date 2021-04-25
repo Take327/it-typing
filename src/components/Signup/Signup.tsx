@@ -8,6 +8,7 @@ import CardHeader from "@material-ui/core/CardHeader";
 import Button from "@material-ui/core/Button";
 import { Link } from 'react-router-dom'
 import { app } from '../../config/firebase'
+import { createNewUser } from '../../util/sign/createNewUser'
 import createUserTexts from '../../util/createUserTexts'
 
 type State = {
@@ -137,12 +138,9 @@ const Signup: React.FC = () => {
         createUserTexts();
     }, [state])
 
-    const signup = async (email: string, password: string) => {
-        try {
-            await app.auth().createUserWithEmailAndPassword(email, password);
-            alert('登録されました')
-        } catch (error) {
-            alert(error);
+    const signupAction = async (email: string, password: string) => {
+        if(await createNewUser(email,password)){
+            alert('登録されました。');
         }
     };
 
@@ -188,7 +186,7 @@ const Signup: React.FC = () => {
                     <div>アカウントをお持ちの方は<Link to="/login">こちら</Link></div>
                 </CardContent>
                 <CardActions>
-                    <Button variant="contained" color="primary" disabled={isButtonDisabled} fullWidth onClick={() => signup(email, password)}>Signup</Button>
+                    <Button variant="contained" color="primary" disabled={isButtonDisabled} fullWidth onClick={() => signupAction(email, password)}>Signup</Button>
                 </CardActions>
             </Card>
         </form>

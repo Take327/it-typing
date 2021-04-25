@@ -12,7 +12,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { NavLink } from 'react-router-dom';
-import { logout } from '../../util/logout'
+import { logout } from '../../util/sign/logout'
 
 const drawerWidth = 240;
 

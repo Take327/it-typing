@@ -1,4 +1,4 @@
-import { app } from '../config/firebase'
+import { app } from '../../config/firebase'
 
 export const logout = async () => {
 
