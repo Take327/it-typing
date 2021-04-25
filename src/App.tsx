@@ -49,7 +49,7 @@ const App: React.FC = () => {
           <Route path='/typing' render={() => <TypingPage />} />
           <Route path='/TextRegistration' render={() => <TextRegistration loginStatus={loginState} />} />
           <Route path='/Login' render={() => <Login changeLoginState={changeLoginState} />} />
-          <Route path='/Signup' component={Signup} />
+          <Route path='/Signup' render={() => <Signup changeLoginState={changeLoginState} />} />
         </main>
       </Router>
     </div>

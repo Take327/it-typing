@@ -6,7 +6,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import CardHeader from "@material-ui/core/CardHeader";
 import Button from "@material-ui/core/Button";
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { app } from '../../config/firebase'
 import { createNewUser } from '../../util/sign/createNewUser'
 import createUserTexts from '../../util/createUserTexts'
@@ -49,12 +49,18 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 }))
 
-const Signup: React.FC = () => {
+type Props = {
+    changeLoginState: Function
+}
+
+const Signup: React.FC<Props> = ({ changeLoginState }) => {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [passwordconfirm, setPasswordconfirm] = useState<string>('');
     const [state, setStates] = useState<State>(initialState);
     const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(true);
+
+    const history = useHistory()
 
     const classes = useStyles();
 
@@ -135,12 +141,13 @@ const Signup: React.FC = () => {
 
     useEffect(() => {
         inputCheck(state);
-        createUserTexts();
     }, [state])
 
     const signupAction = async (email: string, password: string) => {
-        if(await createNewUser(email,password)){
+        if (await createNewUser(email, password)) {
             alert('登録されました。');
+            changeLoginState(true);
+            history.push('/')
         }
     };
 

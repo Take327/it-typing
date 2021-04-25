@@ -1,9 +1,9 @@
 import { app } from '../../config/firebase'
-
+import { login } from './login'
 export const createNewUser = async (email: string, password: string) => {
     try {
         await app.auth().createUserWithEmailAndPassword(email, password);
-        
+        await login(email, password)
         return true
     } catch (error) {
         switch (error.code) {
