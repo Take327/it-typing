@@ -1,6 +1,6 @@
 import * as functions from 'firebase-functions';
 import * as admin from "firebase-admin"
-
+/*
 type UserTypingTexts = {
     uid: string,
     typingTexts: {
@@ -9,12 +9,16 @@ type UserTypingTexts = {
         kanaText: string
     }[]
 }
+*/
 
 export const createUser = functions.https.onCall((data, context) => {
     if (!admin.apps.length) {
         admin.initializeApp();
     }
 
+    return { data: data, auth: context.auth }
+
+    /*
     if (!context.auth) {
         return ({ code: 401, message: 'ログインされていません' });
     } else {
@@ -28,12 +32,9 @@ export const createUser = functions.https.onCall((data, context) => {
         db.collection('typingTexts').doc('typingTexts').set(userTypingTexts).then(() => {
             return ({ code: 200, message: 'ユーザータイピングテキストを作成しました。' });
         }).catch(() => {
-            return({code:500,message:'エラー'});
+            return ({ code: 500, message: 'エラー' });
         })
     }
+    */
 
-
-
-
-
-})
+});
