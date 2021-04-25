@@ -14,6 +14,7 @@ import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import postDefault from '../../util/postDefault'
 import { getUserTexts } from '../../util/loginUserFunc/getUserTexts'
+import { setUserTexts } from '../../util/loginUserFunc/setUserTexts'
 
 
 type TypingText = {
@@ -163,8 +164,11 @@ const TextRegistration: React.FC<Props> = ({ loginStatus }) => {
             const alertText = errorArry.join('\n')
             alert(alertText)
         } else {
-
-            postDefault(row).then(res => alert("登録しました"))
+            if (loginStatus) {
+                setUserTexts(row).then(() => alert("登録しました")).catch(() => alert("登録に失敗しました。"))
+            } else {
+                postDefault(row).then(res => alert("登録しました"))
+            }
 
         }
 

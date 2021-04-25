@@ -7,9 +7,8 @@ import CardActions from "@material-ui/core/CardActions";
 import CardHeader from "@material-ui/core/CardHeader";
 import Button from "@material-ui/core/Button";
 import { Link, useHistory } from 'react-router-dom'
-import { app } from '../../config/firebase'
 import { createNewUser } from '../../util/sign/createNewUser'
-import createUserTexts from '../../util/createUserTexts'
+
 
 type State = {
     emailCheck: boolean,

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import TypingArea from '../TypingArea/TypingArea'
 import getDefault from '../../util/getDefault';
+import { getUserTexts } from '../../util/loginUserFunc/getUserTexts'
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
@@ -18,7 +19,11 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     }
 }));
 
-const TypingPage = () => {
+type Props = {
+    loginStatus: boolean
+}
+
+const TypingPage: React.FC<Props> = ({ loginStatus }) => {
     const classes = useStyles();
     const [typing, setTyping] = useState<TypingText[]>([]);
     const [loadStatus, setLoadStatus] = useState<boolean>(false);
@@ -31,10 +36,18 @@ const TypingPage = () => {
 
     useEffect(() => {
         if (!loadStatus) {
-            getDefault().then(json => {
-                initialTyping(json)
-                setLoadStatus(true)
-            })
+
+            if (loginStatus) {
+                getUserTexts().then((data) => {
+                    initialTyping(data)
+                    setLoadStatus(true)
+                });
+            } else {
+                getDefault().then(json => {
+                    initialTyping(json)
+                    setLoadStatus(true)
+                });
+            }
         }
     });
 
