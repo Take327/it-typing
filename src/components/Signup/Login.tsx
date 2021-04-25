@@ -61,7 +61,6 @@ const Login: React.FC<Props> = ({ changeLoginState }) => {
 
     const classes = useStyles();
 
-
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         switch (e.target.id) {
             case 'email':
@@ -124,7 +123,6 @@ const Login: React.FC<Props> = ({ changeLoginState }) => {
             alert('メールアドレス、またはパスワードが異なります。');
         }
     };
-
 
     return (
         <form className={classes.container} noValidate autoComplete="off">

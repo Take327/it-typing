@@ -21,5 +21,4 @@ export const getUserTexts = async () => {
             return result;
         }
     }
-
 }
