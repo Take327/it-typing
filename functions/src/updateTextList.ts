@@ -23,7 +23,6 @@ const sendResponse = (response: functions.Response, statusCode: number, body: Ob
 export const updateTextList = functions.https.onRequest(async (request: functions.Request, response: functions.Response) => {
     response.set('Access-Control-Allow-Origin', '*');
     response.set('Access-Control-Allow-Methods', 'GET, HEAD, OPTIONS, POST');
-    // ログイン時のアクセストークンを受け入れる
     response.set('Access-Control-Allow-Headers', 'Content-Type, authorization');
 
     if (!admin.apps.length) {

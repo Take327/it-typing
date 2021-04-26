@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
         minWidth: 275,
         height: "100%",
         padding: "20px",
-        overflow: "scroll"
+        overflowY: "auto"
     },
     textField: {
         marginLeft: theme.spacing(1),

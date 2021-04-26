@@ -12,10 +12,13 @@ const useStyles = makeStyles((theme: Theme) =>
     createStyles({
 
         appBar: {
+            [theme.breakpoints.up('xs')]: {
+                backgroundColor: '#81d8d0'
+            },
             [theme.breakpoints.up('sm')]: {
                 width: `calc(100% - ${drawerWidth}px)`,
                 marginLeft: drawerWidth,
-                backgroundColor:'#81d8d0'
+                backgroundColor: '#81d8d0'
             },
         },
         menuButton: {
@@ -27,15 +30,14 @@ const useStyles = makeStyles((theme: Theme) =>
     }),
 );
 
-const Header = () => {
+type Props = {
+    openState: boolean,
+    handleDrawerToggle: Function
+}
+
+const Header: React.FC<Props> = ({ openState, handleDrawerToggle }) => {
 
     const classes = useStyles();
-    const [mobileOpen, setMobileOpen] = React.useState(false);
-
-    const handleDrawerToggle = () => {
-        setMobileOpen(!mobileOpen);
-    };
-
 
     return (
         <AppBar position="fixed" className={classes.appBar}>
@@ -44,7 +46,7 @@ const Header = () => {
                     color="inherit"
                     aria-label="open drawer"
                     edge="start"
-                    onClick={handleDrawerToggle}
+                    onClick={() => handleDrawerToggle()}
                     className={classes.menuButton}
                 >
                     <MenuIcon />

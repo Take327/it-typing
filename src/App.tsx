@@ -33,6 +33,13 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const App: React.FC = () => {
   const classes = useStyles();
+  const [mobileOpen, setMobileOpen] = React.useState(false);
+
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
+
+
   const [loginState, setLoginState] = useState<boolean>(false);
 
   const changeLoginState = (state: boolean) => {
@@ -43,8 +50,8 @@ const App: React.FC = () => {
     <div className={classes.root}>
       <CssBaseline />
       <Router>
-        <Header />
-        <SideNavi loginState={loginState} changeLoginState={changeLoginState} />
+        <Header openState={mobileOpen} handleDrawerToggle={handleDrawerToggle} />
+        <SideNavi loginState={loginState} changeLoginState={changeLoginState} openState={mobileOpen} handleDrawerToggle={handleDrawerToggle} />
         <main className={classes.content}>
           <Route path='/typing' render={() => <TypingPage loginStatus={loginState} />} />
           <Route path='/TextRegistration' render={() => <TextRegistration loginStatus={loginState} />} />
