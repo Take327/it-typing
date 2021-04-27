@@ -40,9 +40,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
         marginRight: theme.spacing(1),
         width: "25vw"
     },
-    addButton: {
-        backgroundColor: '#81d8d0'
-    },
+
     fabGreen: {
         margin: '10px',
         backgroundColor: '#81d8d0',
@@ -198,6 +196,7 @@ const TextRegistration: React.FC<Props> = ({ loginStatus }) => {
                                 ))}
                             </table>
                         </div>
+
                         <div className="addButton">
                             <Fab className={classes.fabGreen} aria-label="done" onClick={postAction}>
                                 <DoneIcon color="action" />

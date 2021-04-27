@@ -14,19 +14,14 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       display: 'flex',
+      height: '100vh'
     },
     toolbar: theme.mixins.toolbar,
 
     content: {
       flexGrow: 1,
-      padding: theme.spacing(3),
       backgroundColor: '#edf7ff',
-      height: '100vh',
-      paddingTop: '70px'
-    },
-    typography: {
-      height: '100vh',
-      backgroundColor: '#cfe8fc'
+      paddingTop: '70px',
     }
   }),
 );

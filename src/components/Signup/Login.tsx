@@ -26,13 +26,15 @@ const initialState: State = {
 const useStyles = makeStyles((theme: Theme) => createStyles({
     container: {
         display: "flex",
+        justifyContent: "center",
         flexWrap: "wrap",
-        width: 400,
+        maxWidth: 400,
+
         margin: `${theme.spacing(0)} auto`
     },
     card: {
         marginTop: theme.spacing(10),
-        width: 400
+        width: '90vw',
     },
     header: {
         textAlign: "center",

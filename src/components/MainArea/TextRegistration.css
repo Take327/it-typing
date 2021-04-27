@@ -43,5 +43,5 @@ tr:nth-child(2n+1) {
     cursor: pointer;
     position: absolute;
     top: 70%;
-    left: 90%;
+    right: 5%;
 }
