@@ -9,6 +9,7 @@ import TypingPage from './components/MainArea/TypingPage'
 import TextRegistration from './components/MainArea/TextRegistration'
 import Login from './components/Signup/Login'
 import Signup from './components/Signup/Signup'
+import Top from './components/MainArea/Top'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -22,6 +23,8 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
       backgroundColor: '#edf7ff',
       paddingTop: '70px',
+      paddingLeft:theme.spacing(1),
+      paddingRight:theme.spacing(1)
     }
   }),
 );
@@ -52,6 +55,7 @@ const App: React.FC = () => {
           <Route path='/TextRegistration' render={() => <TextRegistration loginStatus={loginState} />} />
           <Route path='/Login' render={() => <Login changeLoginState={changeLoginState} />} />
           <Route path='/Signup' render={() => <Signup changeLoginState={changeLoginState} />} />
+          <Route exact path='/' component={Top} />
         </main>
       </Router>
     </div>

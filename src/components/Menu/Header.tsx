@@ -53,7 +53,7 @@ const Header: React.FC<Props> = ({ openState, handleDrawerToggle }) => {
                 </IconButton>
                 <Typography variant="h6" noWrap>
                     IT-TYPING
-            </Typography>
+                </Typography>
             </Toolbar>
         </AppBar>
     )

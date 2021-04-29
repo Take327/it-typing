@@ -16,7 +16,7 @@ import { logout } from '../../util/sign/logout'
 
 const drawerWidth = 240;
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles((theme: Theme) => 
     createStyles({
         drawer: {
             [theme.breakpoints.up('sm')]: {
@@ -35,8 +35,10 @@ const useStyles = makeStyles((theme: Theme) =>
             width: drawerWidth,
         },
 
-    }),
+    })
 );
+
+
 
 type Props = {
     loginState: boolean,

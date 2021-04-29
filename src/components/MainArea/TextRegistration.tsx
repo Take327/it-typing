@@ -32,8 +32,8 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     root: {
         minWidth: 275,
         height: "100%",
-        padding: "20px",
-        overflowY: "auto"
+        overflowY: "auto",
+        padding:'10px'
     },
     textField: {
         marginLeft: theme.spacing(1),
@@ -51,6 +51,16 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     backdrop: {
         zIndex: theme.zIndex.drawer + 1,
         color: '#fff',
+    },
+    addButton: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        cursor: 'pointer',
+        position: 'absolute',
+        top: '70vh',
+        right: '5vw'
     }
 }));
 
@@ -197,7 +207,7 @@ const TextRegistration: React.FC<Props> = ({ loginStatus }) => {
                             </table>
                         </div>
 
-                        <div className="addButton">
+                        <div className={classes.addButton}>
                             <Fab className={classes.fabGreen} aria-label="done" onClick={postAction}>
                                 <DoneIcon color="action" />
                             </Fab>
@@ -214,7 +224,6 @@ const TextRegistration: React.FC<Props> = ({ loginStatus }) => {
                 <CircularProgress color="inherit" />
             </Backdrop>
         </Card>
-
     )
 }
 
