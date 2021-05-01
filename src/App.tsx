@@ -23,8 +23,8 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
       backgroundColor: '#edf7ff',
       paddingTop: '80px',
-      paddingLeft:theme.spacing(2),
-      paddingRight:theme.spacing(2)
+      paddingLeft: theme.spacing(2),
+      paddingRight: theme.spacing(2)
     }
   }),
 );
@@ -55,7 +55,7 @@ const App: React.FC = () => {
           <Route path='/TextRegistration' render={() => <TextRegistration loginStatus={loginState} />} />
           <Route path='/Login' render={() => <Login changeLoginState={changeLoginState} />} />
           <Route path='/Signup' render={() => <Signup changeLoginState={changeLoginState} />} />
-          <Route exact path='/' component={Top} />
+          <Route exact path='/' render={() => <Top loginState={loginState} />} />
         </main>
       </Router>
     </div>

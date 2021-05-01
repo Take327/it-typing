@@ -8,6 +8,8 @@ import CardHeader from "@material-ui/core/CardHeader";
 import Button from "@material-ui/core/Button";
 import { Link, useHistory } from 'react-router-dom'
 import { createNewUser } from '../../util/sign/createNewUser'
+import { ThemeProvider } from "@material-ui/styles";
+import { createMuiTheme } from "@material-ui/core/styles";
 
 
 type State = {
@@ -44,10 +46,19 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     cardContent: {
         display: "flex",
         flexFlow: "column"
+    },
+    button: {
+        color: '#fff'
     }
-
-
 }))
+
+const theme = createMuiTheme({
+    palette: {
+        primary: {
+            main: '#81d8d0'
+        },
+    }
+});
 
 type Props = {
     changeLoginState: Function
@@ -193,7 +204,9 @@ const Signup: React.FC<Props> = ({ changeLoginState }) => {
                     <div>アカウントをお持ちの方は<Link to="/login">こちら</Link></div>
                 </CardContent>
                 <CardActions>
-                    <Button variant="contained" color="primary" disabled={isButtonDisabled} fullWidth onClick={() => signupAction(email, password)}>Signup</Button>
+                    <ThemeProvider theme={theme}>
+                        <Button variant="contained" className={classes.button} color="primary" disabled={isButtonDisabled} fullWidth onClick={() => signupAction(email, password)}>Signup</Button>
+                    </ThemeProvider>
                 </CardActions>
             </Card>
         </form>

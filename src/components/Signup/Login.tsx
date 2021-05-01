@@ -8,6 +8,8 @@ import CardActions from "@material-ui/core/CardActions";
 import CardHeader from "@material-ui/core/CardHeader";
 import Button from "@material-ui/core/Button";
 import { login } from '../../util/sign/login';
+import { ThemeProvider } from "@material-ui/styles";
+import { createMuiTheme } from "@material-ui/core/styles";
 
 
 
@@ -21,6 +23,8 @@ const initialState: State = {
     emailCheck: true,
     passwordCheck: true,
 }
+
+
 
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -44,10 +48,19 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     cardContent: {
         display: "flex",
         flexFlow: "column"
+    },
+    button:{
+        color:'#fff'
     }
-
-
 }))
+
+const theme = createMuiTheme({
+    palette: {
+        primary: {
+            main: '#81d8d0'
+        },
+    }
+});
 
 type Props = {
     changeLoginState: Function
@@ -156,7 +169,9 @@ const Login: React.FC<Props> = ({ changeLoginState }) => {
                     <div>新規登録は<Link to="/signup">こちら</Link></div>
                 </CardContent>
                 <CardActions>
-                    <Button variant="contained" color="primary" disabled={isButtonDisabled} fullWidth onClick={() => loginAction(email, password)}>Login</Button>
+                    <ThemeProvider theme={theme}>
+                        <Button variant="contained" className={classes.button} color="primary" disabled={isButtonDisabled} fullWidth onClick={() => loginAction(email, password)}>Login</Button>
+                    </ThemeProvider>
                 </CardActions>
             </Card>
         </form>
