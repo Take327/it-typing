@@ -7,8 +7,8 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     card: {
-        marginTop: theme.spacing(10),
-        width: '70vw',
+        width: '100%',
+        height: '100%'
     },
     header: {
         textAlign: "center",
@@ -27,7 +27,7 @@ const Top: React.FC = () => {
 
     return (
         <Card className={classes.card}>
-                tesuto
+            tesuto
         </Card>
     )
 }

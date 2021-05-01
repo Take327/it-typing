@@ -22,9 +22,9 @@ const useStyles = makeStyles((theme: Theme) =>
     content: {
       flexGrow: 1,
       backgroundColor: '#edf7ff',
-      paddingTop: '70px',
-      paddingLeft:theme.spacing(1),
-      paddingRight:theme.spacing(1)
+      paddingTop: '80px',
+      paddingLeft:theme.spacing(2),
+      paddingRight:theme.spacing(2)
     }
   }),
 );
