@@ -26,7 +26,6 @@ const getDefault = async () => {
     const json = await response
       .json()
       .then((json: Default) => {
-        console.log('Asynchronous Promise Sample 1:', json)
         return json
       })
       .catch((error) => {

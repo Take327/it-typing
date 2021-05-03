@@ -31,9 +31,12 @@ type Error = {
 const useStyles = makeStyles((theme: Theme) => createStyles({
     root: {
         minWidth: 275,
-        height: "100%",
+        height: '75vh',
         overflowY: "auto",
-        padding:'10px'
+        padding: '10px',
+        [theme.breakpoints.up('sm')]: {
+            height: '85vh',
+        },
     },
     textField: {
         marginLeft: theme.spacing(1),
@@ -59,7 +62,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
         alignItems: 'center',
         cursor: 'pointer',
         position: 'absolute',
-        top: '70vh',
+        top: '60vh',
         right: '5vw'
     }
 }));
@@ -155,30 +158,34 @@ const TextRegistration: React.FC<Props> = ({ loginStatus }) => {
     }
 
     const postAction = () => {
-        const reg = new RegExp(/[!"#$%&'()\*\+\-\.,\/:;<=>?@\[\\\]^_`{|}~]/g);
-        const errorArry: string[] = [];
-        row.forEach((value) => {
-            if (value.originalText === '') {
-                errorArry.push(`ID:${value.id} オリジナルテキストが入力されていません。`);
-            }
-            if (value.kanaText === '') {
-                errorArry.push(`ID:${value.id} カナテキストが入力されていません。`);
-            } else if (reg.test(value.kanaText)) {
-                errorArry.push(`ID:${value.id} [半角英数]及び[ひらがな][カタカナ]以外はカナテキストへ入力できません`);
-            }
-        });
 
-        if (errorArry.length > 0) {
-            const alertText = errorArry.join('\n')
-            alert(alertText)
-        } else {
-            if (loginStatus) {
-                setUserTexts(row).then(() => alert("登録しました")).catch(() => alert("登録に失敗しました。"))
+        if (confirm('登録しますか？')) {
+            const reg = new RegExp(/[!"#$%&'()\*\+\-\.,\/:;<=>?@\[\\\]^_`{|}~]/g);
+            const errorArry: string[] = [];
+            row.forEach((value) => {
+                if (value.originalText === '') {
+                    errorArry.push(`ID:${value.id} オリジナルテキストが入力されていません。`);
+                }
+                if (value.kanaText === '') {
+                    errorArry.push(`ID:${value.id} カナテキストが入力されていません。`);
+                } else if (reg.test(value.kanaText)) {
+                    errorArry.push(`ID:${value.id} [半角英数]及び[ひらがな][カタカナ]以外はカナテキストへ入力できません`);
+                }
+            });
+
+            if (errorArry.length > 0) {
+                const alertText = errorArry.join('\n')
+                alert(alertText)
             } else {
-                postDefault(row).then(res => alert("登録しました"))
+                if (loginStatus) {
+                    setUserTexts(row).then(() => alert("登録しました")).catch(() => alert("登録に失敗しました。"))
+                } else {
+                    postDefault(row).then(res => alert("登録しました"))
+                }
             }
-
         }
+
+
 
     }
 

@@ -5,6 +5,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import GitHubIcon from '@material-ui/icons/GitHub';
 
 const drawerWidth = 240;
 
@@ -26,6 +27,9 @@ const useStyles = makeStyles((theme: Theme) =>
             [theme.breakpoints.up('sm')]: {
                 display: 'none',
             },
+        },
+        gitButton: {
+            marginLeft: 'auto',
         }
     }),
 );
@@ -54,7 +58,19 @@ const Header: React.FC<Props> = ({ openState, handleDrawerToggle }) => {
                 <Typography variant="h6" noWrap>
                     IT-TYPING
                 </Typography>
+
+
+                <a className={classes.gitButton} target="_blank" href="https://github.com/Take327/it-typing">
+                    <IconButton
+                        edge="start"
+                    >
+                        <GitHubIcon />
+                    </IconButton>
+                </a>
+
+
             </Toolbar>
+
         </AppBar>
     )
 }

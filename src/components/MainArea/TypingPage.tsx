@@ -5,6 +5,12 @@ import getDefault from '../../util/getDefault';
 import { getUserTexts } from '../../util/loginUserFunc/getUserTexts'
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Hidden from '@material-ui/core/Hidden';
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import Typography from '@material-ui/core/Typography';
+
+
 
 type TypingText = {
     id: number,
@@ -16,6 +22,10 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     backdrop: {
         zIndex: theme.zIndex.drawer + 1,
         color: '#fff',
+    },
+    card: {
+        width: '100%',
+        height: '70vh'
     }
 }));
 
@@ -53,15 +63,30 @@ const TypingPage: React.FC<Props> = ({ loginStatus }) => {
 
     return (
         <>
-            {(() => {
-                if (loadStatus) {
-                    return <TypingArea typingText={typing} />
-                }
-            })()}
+            <Hidden xsDown implementation="css">
 
-            <Backdrop className={classes.backdrop} open={!loadStatus}>
-                <CircularProgress color="inherit" />
-            </Backdrop>
+                {(() => {
+                    if (loadStatus) {
+                        return <TypingArea typingText={typing} />
+                    }
+                })()}
+                <Backdrop className={classes.backdrop} open={!loadStatus}>
+                    <CircularProgress color="inherit" />
+                </Backdrop>
+            </Hidden>
+
+            <Hidden smUp implementation="css">
+                <Card className={classes.card}>
+
+                    <CardContent>
+                        <Typography variant="body1" component="p">
+                            タイピング練習はPCからのアクセスのみ対応しています。
+                        </Typography>
+                    </CardContent>
+                </Card>
+            </Hidden>
+
+
 
         </>
 
