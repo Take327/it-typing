@@ -10,13 +10,14 @@ import ListItemText from '@material-ui/core/ListItemText';
 import SaveIcon from '@material-ui/icons/Save';
 import HomeIcon from '@material-ui/icons/Home';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import EmailIcon from '@material-ui/icons/Email';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { NavLink } from 'react-router-dom';
 import { logout } from '../../util/sign/logout'
 
 const drawerWidth = 240;
 
-const useStyles = makeStyles((theme: Theme) => 
+const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         drawer: {
             [theme.breakpoints.up('sm')]: {
@@ -104,6 +105,15 @@ const SideMenu: React.FC<Props> = ({ loginState, changeLoginState, openState, ha
                                 </ListItem>
                             </NavLink>
 
+                            <NavLink exact to='/contact' activeStyle={current}>
+                                <ListItem button key={'お問い合わせ'}>
+                                    <ListItemIcon>
+                                        <EmailIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary={'お問い合わせ'} />
+                                </ListItem>
+                            </NavLink>
+
                             {(() => {
                                 if (!loginState) {
                                     return (
@@ -174,6 +184,15 @@ const SideMenu: React.FC<Props> = ({ loginState, changeLoginState, openState, ha
                                         <SaveIcon />
                                     </ListItemIcon>
                                     <ListItemText primary={'テキスト登録'} />
+                                </ListItem>
+                            </NavLink>
+
+                            <NavLink exact to='/contact' activeStyle={current}>
+                                <ListItem button key={'お問い合わせ'}>
+                                    <ListItemIcon>
+                                        <EmailIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary={'お問い合わせ'} />
                                 </ListItem>
                             </NavLink>
 

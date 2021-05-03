@@ -10,6 +10,7 @@ import TextRegistration from './components/MainArea/TextRegistration'
 import Login from './components/Signup/Login'
 import Signup from './components/Signup/Signup'
 import Top from './components/MainArea/Top'
+import Contact from './components/MainArea/Contact'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -51,11 +52,13 @@ const App: React.FC = () => {
         <Header openState={mobileOpen} handleDrawerToggle={handleDrawerToggle} />
         <SideNavi loginState={loginState} changeLoginState={changeLoginState} openState={mobileOpen} handleDrawerToggle={handleDrawerToggle} />
         <main className={classes.content}>
+          <Route exact path='/' render={() => <Top loginState={loginState} />} />
           <Route path='/typing' render={() => <TypingPage loginStatus={loginState} />} />
           <Route path='/TextRegistration' render={() => <TextRegistration loginStatus={loginState} />} />
           <Route path='/Login' render={() => <Login changeLoginState={changeLoginState} />} />
           <Route path='/Signup' render={() => <Signup changeLoginState={changeLoginState} />} />
-          <Route exact path='/' render={() => <Top loginState={loginState} />} />
+          <Route path='/contact' render={() => <Contact />} />
+
         </main>
       </Router>
     </div>
