@@ -59,16 +59,6 @@ const Header: React.FC<Props> = ({ openState, handleDrawerToggle }) => {
                     IT-TYPING
                 </Typography>
 
-
-                <a className={classes.gitButton} target="_blank" href="https://github.com/Take327/it-typing">
-                    <IconButton
-                        edge="start"
-                    >
-                        <GitHubIcon />
-                    </IconButton>
-                </a>
-
-
             </Toolbar>
 
         </AppBar>
