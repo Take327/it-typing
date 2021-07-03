@@ -7,9 +7,9 @@ import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import CardHeader from "@material-ui/core/CardHeader";
 import Button from "@material-ui/core/Button";
-import { login } from '../../util/sign/login';
 import { ThemeProvider } from "@material-ui/styles";
 import { createMuiTheme } from "@material-ui/core/styles";
+import { login } from '../../reducks/user/operations'
 
 
 
@@ -49,8 +49,8 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
         display: "flex",
         flexFlow: "column"
     },
-    button:{
-        color:'#fff'
+    button: {
+        color: '#fff'
     }
 }))
 
@@ -130,13 +130,10 @@ const Login: React.FC<Props> = ({ changeLoginState }) => {
     }, [state])
 
 
-    const loginAction = async (email: string, password: string) => {
-        if (await login(email, password)) {
-            changeLoginState(true);
-            history.push('/')
-        } else {
-            alert('メールアドレス、またはパスワードが異なります。');
-        }
+    const loginAction = (email: string, password: string) => {
+        login(email, password)
+        history.push('/')
+
     };
 
     return (

@@ -13,7 +13,10 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import EmailIcon from '@material-ui/icons/Email';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import { NavLink } from 'react-router-dom';
-import { logout } from '../../util/sign/logout'
+import { useDispatch, useSelector } from 'react-redux'
+import { State } from '../../reducks/store/types'
+import { getUserLoginState } from '../../reducks/user/selectors'
+import { logout } from '../../reducks/user/operations'
 
 const drawerWidth = 240;
 
@@ -42,14 +45,16 @@ const useStyles = makeStyles((theme: Theme) =>
 
 
 type Props = {
-    loginState: boolean,
-    changeLoginState: Function,
     openState: boolean,
     handleDrawerToggle: Function
 }
 
-const SideMenu: React.FC<Props> = ({ loginState, changeLoginState, openState, handleDrawerToggle }) => {
+const SideMenu: React.FC<Props> = ({ openState, handleDrawerToggle }) => {
     const classes = useStyles();
+
+    const dispatch = useDispatch()
+    const selector = useSelector((state: State) => { return state })
+    const loginState = useState(getUserLoginState(selector))
 
     const current = {
         color: 'blue',
@@ -57,13 +62,10 @@ const SideMenu: React.FC<Props> = ({ loginState, changeLoginState, openState, ha
     };
 
     const handleLogoutClick = () => {
-        logout().then(() => {
-            alert('ログアウトしました');
-            changeLoginState(false);
-        }).catch((error) => {
-            alert('ログアウトに失敗しました。')
-        })
+        dispatch(logout());
     }
+
+    console.log(loginState)
 
     return (
         <nav className={classes.drawer} aria-label="mailbox folders">

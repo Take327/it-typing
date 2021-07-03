@@ -50,7 +50,7 @@ const App: React.FC = () => {
       <CssBaseline />
       <Router>
         <Header openState={mobileOpen} handleDrawerToggle={handleDrawerToggle} />
-        <SideNavi loginState={loginState} changeLoginState={changeLoginState} openState={mobileOpen} handleDrawerToggle={handleDrawerToggle} />
+        <SideNavi openState={mobileOpen} handleDrawerToggle={handleDrawerToggle} />
         <main className={classes.content}>
           <Route exact path='/' render={() => <Top loginState={loginState} />} />
           <Route path='/typing' render={() => <TypingPage loginStatus={loginState} />} />

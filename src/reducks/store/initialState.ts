@@ -1,4 +1,4 @@
-import { State } from './type'
+import { State } from './types'
 
 const initialState: State = {
     user: { login: false }
