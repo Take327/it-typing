@@ -167,7 +167,7 @@ const Login: React.FC<Props> = ({ changeLoginState }) => {
                 </CardContent>
                 <CardActions>
                     <ThemeProvider theme={theme}>
-                        <Button variant="contained" className={classes.button} color="primary" disabled={isButtonDisabled} fullWidth onClick={() => loginAction(email, password)}>Login</Button>
+                        <Button variant="contained" className={classes.button} color="primary" disabled={isButtonDisabled} fullWidth onClick={() => login(email, password)}>Login</Button>
                     </ThemeProvider>
                 </CardActions>
             </Card>

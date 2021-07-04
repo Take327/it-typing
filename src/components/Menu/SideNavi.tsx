@@ -117,7 +117,7 @@ const SideMenu: React.FC<Props> = ({ openState, handleDrawerToggle }) => {
                             </NavLink>
 
                             {(() => {
-                                if (!loginState) {
+                                if (!getUserLoginState(selector)) {
                                     return (
                                         <NavLink exact to='/Login' activeStyle={current}>
                                             <ListItem button key={'ログイン'}>
@@ -199,7 +199,7 @@ const SideMenu: React.FC<Props> = ({ openState, handleDrawerToggle }) => {
                             </NavLink>
 
                             {(() => {
-                                if (!loginState) {
+                                if (!getUserLoginState(selector)) {
                                     return (
                                         <NavLink exact to='/Login' activeStyle={current}>
                                             <ListItem button key={'ログイン'}>

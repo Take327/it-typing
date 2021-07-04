@@ -7,6 +7,7 @@ export const login = (email: string, password: string) => {
         try {
             await app.auth().signInWithEmailAndPassword(email, password);
             dispatch(changeLoginAction(true))
+            alert('ようこそ');
         } catch (error) {
             alert('メールアドレス、またはパスワードが異なります。');
         }
