@@ -10,6 +10,7 @@ import Button from "@material-ui/core/Button";
 import { ThemeProvider } from "@material-ui/styles";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { login } from '../../reducks/user/operations'
+import { useDispatch } from 'react-redux'
 
 
 
@@ -68,6 +69,7 @@ type Props = {
 
 const Login: React.FC<Props> = ({ changeLoginState }) => {
     const history = useHistory()
+    const dispatch = useDispatch()
 
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
@@ -131,7 +133,7 @@ const Login: React.FC<Props> = ({ changeLoginState }) => {
 
 
     const loginAction = (email: string, password: string) => {
-        login(email, password)
+        dispatch(login(email, password))
         history.push('/')
 
     };
@@ -167,7 +169,7 @@ const Login: React.FC<Props> = ({ changeLoginState }) => {
                 </CardContent>
                 <CardActions>
                     <ThemeProvider theme={theme}>
-                        <Button variant="contained" className={classes.button} color="primary" disabled={isButtonDisabled} fullWidth onClick={() => login(email, password)}>Login</Button>
+                        <Button variant="contained" className={classes.button} color="primary" disabled={isButtonDisabled} fullWidth onClick={() => loginAction(email, password)}>Login</Button>
                     </ThemeProvider>
                 </CardActions>
             </Card>

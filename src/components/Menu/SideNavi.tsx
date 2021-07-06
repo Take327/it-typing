@@ -65,7 +65,7 @@ const SideMenu: React.FC<Props> = ({ openState, handleDrawerToggle }) => {
         dispatch(logout());
     }
 
-    console.log(loginState)
+    console.log(getUserLoginState(selector))
 
     return (
         <nav className={classes.drawer} aria-label="mailbox folders">
