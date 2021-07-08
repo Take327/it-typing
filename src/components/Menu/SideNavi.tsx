@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
@@ -54,8 +54,6 @@ const SideMenu: React.FC<Props> = ({ openState, handleDrawerToggle }) => {
 
     const dispatch = useDispatch()
     const selector = useSelector((state: State) => { return state })
-    const loginState = useState(getUserLoginState(selector))
-
     const current = {
         color: 'blue',
         textDecoration: 'underline',
@@ -64,9 +62,6 @@ const SideMenu: React.FC<Props> = ({ openState, handleDrawerToggle }) => {
     const handleLogoutClick = () => {
         dispatch(logout());
     }
-
-    console.log(getUserLoginState(selector))
-
     return (
         <nav className={classes.drawer} aria-label="mailbox folders">
             <Hidden xsDown implementation="css">
@@ -150,9 +145,7 @@ const SideMenu: React.FC<Props> = ({ openState, handleDrawerToggle }) => {
 
             <Hidden smUp implementation="css">
                 <Drawer
-                    //container={this.props.container}
                     variant="temporary"
-                    //anchor={theme.direction === 'rtl' ? 'right' : 'left'}
                     open={openState}
                     onClose={() => handleDrawerToggle()}
                     classes={{
