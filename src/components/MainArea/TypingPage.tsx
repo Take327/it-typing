@@ -9,6 +9,9 @@ import Hidden from '@material-ui/core/Hidden';
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from '@material-ui/core/Typography';
+import { useSelector } from 'react-redux'
+import { State } from '../../reducks/store/types'
+import { getUserLoginState } from '../../reducks/user/selectors'
 
 
 
@@ -29,14 +32,12 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     }
 }));
 
-type Props = {
-    loginStatus: boolean
-}
-
-const TypingPage: React.FC<Props> = ({ loginStatus }) => {
+const TypingPage: React.FC = () => {
     const classes = useStyles();
     const [typing, setTyping] = useState<TypingText[]>([]);
     const [loadStatus, setLoadStatus] = useState<boolean>(false);
+    const loginState = getUserLoginState(useSelector((state: State) => { return state }))
+
 
     const initialTyping = (json: TypingText[] | undefined) => {
         if (json !== undefined) {
@@ -47,7 +48,7 @@ const TypingPage: React.FC<Props> = ({ loginStatus }) => {
     useEffect(() => {
         if (!loadStatus) {
 
-            if (loginStatus) {
+            if (loginState) {
                 getUserTexts().then((data) => {
                     initialTyping(data)
                     setLoadStatus(true)

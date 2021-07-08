@@ -49,9 +49,9 @@ type Props = {
     handleDrawerToggle: Function
 }
 
-const SideMenu: React.FC<Props> = ({ openState, handleDrawerToggle }) => {
-    const classes = useStyles();
 
+export const NaviMenu: React.FC = () => {
+    const classes = useStyles();
     const dispatch = useDispatch()
     const selector = useSelector((state: State) => { return state })
     const current = {
@@ -62,6 +62,82 @@ const SideMenu: React.FC<Props> = ({ openState, handleDrawerToggle }) => {
     const handleLogoutClick = () => {
         dispatch(logout());
     }
+
+    return (
+        <div className={classes.toolbar} >
+            <Divider />
+            <List>
+                <NavLink exact to='/' activeStyle={current}>
+                    <ListItem button key={'ホーム'}>
+                        <ListItemIcon>
+                            <HomeIcon />
+                        </ListItemIcon>
+                        <ListItemText primary={'ホーム'} />
+                    </ListItem>
+                </NavLink>
+
+                <NavLink exact to='/typing' activeStyle={current}>
+                    <ListItem button key={'タイピング'}>
+                        <ListItemIcon>
+                            <KeyboardIcon />
+                        </ListItemIcon>
+                        <ListItemText primary={'タイピング'} />
+                    </ListItem>
+                </NavLink>
+
+                <NavLink exact to='/TextRegistration' activeStyle={current}>
+                    <ListItem button key={'テキスト登録'}>
+                        <ListItemIcon>
+                            <SaveIcon />
+                        </ListItemIcon>
+                        <ListItemText primary={'テキスト登録'} />
+                    </ListItem>
+                </NavLink>
+
+                <NavLink exact to='/contact' activeStyle={current}>
+                    <ListItem button key={'お問い合わせ'}>
+                        <ListItemIcon>
+                            <EmailIcon />
+                        </ListItemIcon>
+                        <ListItemText primary={'お問い合わせ'} />
+                    </ListItem>
+                </NavLink>
+
+                {(() => {
+                    if (!getUserLoginState(selector)) {
+                        return (
+                            <NavLink exact to='/Login' activeStyle={current}>
+                                <ListItem button key={'ログイン'}>
+                                    <ListItemIcon>
+                                        <AccountCircleIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary={'ログイン'} />
+                                </ListItem>
+                            </NavLink>
+                        )
+                    } else {
+                        return (
+                            <NavLink exact to='/' activeStyle={current} onClick={handleLogoutClick}>
+                                <ListItem button key={'ログアウト'}>
+                                    <ListItemIcon>
+                                        <AccountCircleIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary={'ログアウト'} />
+                                </ListItem>
+                            </NavLink>
+                        )
+                    }
+                })()}
+
+            </List>
+            <Divider />
+        </div>
+    )
+}
+
+const SideNavi: React.FC<Props> = ({ openState, handleDrawerToggle }) => {
+    const classes = useStyles();
+
     return (
         <nav className={classes.drawer} aria-label="mailbox folders">
             <Hidden xsDown implementation="css">
@@ -72,77 +148,9 @@ const SideMenu: React.FC<Props> = ({ openState, handleDrawerToggle }) => {
                     variant="permanent"
                     open
                 >
-                    <div className={classes.toolbar} >
-                        <Divider />
-                        <List>
-                            <NavLink exact to='/' activeStyle={current}>
-                                <ListItem button key={'ホーム'}>
-                                    <ListItemIcon>
-                                        <HomeIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary={'ホーム'} />
-                                </ListItem>
-                            </NavLink>
-
-                            <NavLink exact to='/typing' activeStyle={current}>
-                                <ListItem button key={'タイピング'}>
-                                    <ListItemIcon>
-                                        <KeyboardIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary={'タイピング'} />
-                                </ListItem>
-                            </NavLink>
-
-                            <NavLink exact to='/TextRegistration' activeStyle={current}>
-                                <ListItem button key={'テキスト登録'}>
-                                    <ListItemIcon>
-                                        <SaveIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary={'テキスト登録'} />
-                                </ListItem>
-                            </NavLink>
-
-                            <NavLink exact to='/contact' activeStyle={current}>
-                                <ListItem button key={'お問い合わせ'}>
-                                    <ListItemIcon>
-                                        <EmailIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary={'お問い合わせ'} />
-                                </ListItem>
-                            </NavLink>
-
-                            {(() => {
-                                if (!getUserLoginState(selector)) {
-                                    return (
-                                        <NavLink exact to='/Login' activeStyle={current}>
-                                            <ListItem button key={'ログイン'}>
-                                                <ListItemIcon>
-                                                    <AccountCircleIcon />
-                                                </ListItemIcon>
-                                                <ListItemText primary={'ログイン'} />
-                                            </ListItem>
-                                        </NavLink>
-                                    )
-                                } else {
-                                    return (
-                                        <NavLink exact to='/' activeStyle={current} onClick={handleLogoutClick}>
-                                            <ListItem button key={'ログアウト'}>
-                                                <ListItemIcon>
-                                                    <AccountCircleIcon />
-                                                </ListItemIcon>
-                                                <ListItemText primary={'ログアウト'} />
-                                            </ListItem>
-                                        </NavLink>
-                                    )
-                                }
-                            })()}
-
-                        </List>
-                        <Divider />
-                    </div>
+                    <NaviMenu />
                 </Drawer>
             </Hidden>
-
             <Hidden smUp implementation="css">
                 <Drawer
                     variant="temporary"
@@ -152,78 +160,11 @@ const SideMenu: React.FC<Props> = ({ openState, handleDrawerToggle }) => {
                         paper: classes.drawerPaper,
                     }}
                 >
-                    <div className={classes.toolbar} >
-                        <Divider />
-                        <List>
-                            <NavLink exact to='/' activeStyle={current}>
-                                <ListItem button key={'ホーム'}>
-                                    <ListItemIcon>
-                                        <HomeIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary={'ホーム'} />
-                                </ListItem>
-                            </NavLink>
-
-                            <NavLink exact to='/typing' activeStyle={current}>
-                                <ListItem button key={'タイピング'}>
-                                    <ListItemIcon>
-                                        <KeyboardIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary={'タイピング'} />
-                                </ListItem>
-                            </NavLink>
-
-                            <NavLink exact to='/TextRegistration' activeStyle={current}>
-                                <ListItem button key={'テキスト登録'}>
-                                    <ListItemIcon>
-                                        <SaveIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary={'テキスト登録'} />
-                                </ListItem>
-                            </NavLink>
-
-                            <NavLink exact to='/contact' activeStyle={current}>
-                                <ListItem button key={'お問い合わせ'}>
-                                    <ListItemIcon>
-                                        <EmailIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary={'お問い合わせ'} />
-                                </ListItem>
-                            </NavLink>
-
-                            {(() => {
-                                if (!getUserLoginState(selector)) {
-                                    return (
-                                        <NavLink exact to='/Login' activeStyle={current}>
-                                            <ListItem button key={'ログイン'}>
-                                                <ListItemIcon>
-                                                    <AccountCircleIcon />
-                                                </ListItemIcon>
-                                                <ListItemText primary={'ログイン'} />
-                                            </ListItem>
-                                        </NavLink>
-                                    )
-                                } else {
-                                    return (
-                                        <NavLink exact to='/' activeStyle={current} onClick={handleLogoutClick}>
-                                            <ListItem button key={'ログアウト'}>
-                                                <ListItemIcon>
-                                                    <AccountCircleIcon />
-                                                </ListItemIcon>
-                                                <ListItemText primary={'ログアウト'} />
-                                            </ListItem>
-                                        </NavLink>
-                                    )
-                                }
-                            })()}
-
-                        </List>
-                        <Divider />
-                    </div>
+                    <NaviMenu />
                 </Drawer>
             </Hidden>
         </nav>
     )
 }
 
-export default SideMenu;
+export default SideNavi;

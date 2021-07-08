@@ -34,11 +34,10 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 type Props = {
-    openState: boolean,
     handleDrawerToggle: Function
 }
 
-const Header: React.FC<Props> = ({ openState, handleDrawerToggle }) => {
+const Header: React.FC<Props> = ({ handleDrawerToggle }) => {
 
     const classes = useStyles();
 
@@ -57,7 +56,6 @@ const Header: React.FC<Props> = ({ openState, handleDrawerToggle }) => {
                 <Typography variant="h6" noWrap>
                     IT-TYPING
                 </Typography>
-
             </Toolbar>
 
         </AppBar>

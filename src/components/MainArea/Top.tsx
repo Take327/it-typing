@@ -4,6 +4,9 @@ import CardContent from "@material-ui/core/CardContent";
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { State } from '../../reducks/store/types'
+import { getUserLoginState } from '../../reducks/user/selectors'
 
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -22,13 +25,13 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     }
 }))
 
-type Props = {
-    loginState: boolean
-}
 
 
 
-const Top: React.FC<Props> = ({ loginState }) => {
+
+const Top: React.FC = () => {
+
+    const loginState = getUserLoginState(useSelector((state: State) => { return state }))
 
     const classes = useStyles();
 

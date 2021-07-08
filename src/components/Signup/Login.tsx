@@ -10,23 +10,20 @@ import Button from "@material-ui/core/Button";
 import { ThemeProvider } from "@material-ui/styles";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { login } from '../../reducks/user/operations'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { State } from '../../reducks/store/types'
+import { getUserLoginState } from '../../reducks/user/selectors'
 
 
-
-
-type State = {
+type CheckState = {
     emailCheck: boolean,
     passwordCheck: boolean,
 }
 
-const initialState: State = {
+const initialState: CheckState = {
     emailCheck: true,
     passwordCheck: true,
 }
-
-
-
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
     container: {
@@ -63,17 +60,15 @@ const theme = createMuiTheme({
     }
 });
 
-type Props = {
-    changeLoginState: Function
-}
-
-const Login: React.FC<Props> = ({ changeLoginState }) => {
-    const history = useHistory()
+const Login: React.FC = () => {
     const dispatch = useDispatch()
+    const history = useHistory()
+    const loginState = getUserLoginState(useSelector((state: State) => { return state }))
+
 
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
-    const [state, setStates] = useState<State>(initialState);
+    const [state, setStates] = useState<CheckState>(initialState);
     const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(true);
 
     const classes = useStyles();
@@ -92,7 +87,7 @@ const Login: React.FC<Props> = ({ changeLoginState }) => {
     }
 
     const handleError = (e: React.FocusEvent<HTMLInputElement>) => {
-        let nowState: State = Object.assign({}, state);
+        let nowState: CheckState = Object.assign({}, state);
 
         switch (e.target.id) {
             case 'email':
@@ -114,7 +109,7 @@ const Login: React.FC<Props> = ({ changeLoginState }) => {
         setStates(nowState);
     }
 
-    const inputCheck = (state: State) => {
+    const inputCheck = (state: CheckState) => {
         if (email !== '' && password !== '') {
             if (state.emailCheck && state.passwordCheck) {
                 setIsButtonDisabled(false);
@@ -134,8 +129,10 @@ const Login: React.FC<Props> = ({ changeLoginState }) => {
 
     const loginAction = (email: string, password: string) => {
         dispatch(login(email, password))
-        history.push('/')
 
+        if (loginState) {
+            history.push('/')
+        }
     };
 
     return (

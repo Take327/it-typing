@@ -15,6 +15,9 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import postDefault from '../../util/postDefault'
 import { getUserTexts } from '../../util/loginUserFunc/getUserTexts'
 import { setUserTexts } from '../../util/loginUserFunc/setUserTexts'
+import { useSelector } from 'react-redux'
+import { State } from '../../reducks/store/types'
+import { getUserLoginState } from '../../reducks/user/selectors'
 
 
 type TypingText = {
@@ -67,17 +70,16 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     }
 }));
 
-type Props = {
-    loginStatus: boolean
-}
 
-
-const TextRegistration: React.FC<Props> = ({ loginStatus }) => {
+const TextRegistration: React.FC = () => {
 
     const classes = useStyles();
 
     const [row, setRow] = useState<TypingText[]>([]);
     const [loadStatus, setLoadStatus] = useState<boolean>(false);
+    const loginState = getUserLoginState(useSelector((state: State) => { return state }))
+
+
 
     const initialTyping = (json: TypingText[] | undefined) => {
         if (json !== undefined) {
@@ -87,7 +89,7 @@ const TextRegistration: React.FC<Props> = ({ loginStatus }) => {
 
     useEffect(() => {
         if (!loadStatus) {
-            if (loginStatus) {
+            if (loginState) {
                 getUserTexts().then((data) => {
                     initialTyping(data)
                     setLoadStatus(true)
@@ -177,7 +179,7 @@ const TextRegistration: React.FC<Props> = ({ loginStatus }) => {
                 const alertText = errorArry.join('\n')
                 alert(alertText)
             } else {
-                if (loginStatus) {
+                if (loginState) {
                     setUserTexts(row).then(() => alert("登録しました")).catch(() => alert("登録に失敗しました。"))
                 } else {
                     postDefault(row).then(res => alert("登録しました"))

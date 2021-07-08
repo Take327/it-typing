@@ -49,13 +49,13 @@ const App: React.FC = () => {
     <div className={classes.root}>
       <CssBaseline />
       <Router>
-        <Header openState={mobileOpen} handleDrawerToggle={handleDrawerToggle} />
+        <Header handleDrawerToggle={handleDrawerToggle} />
         <SideNavi openState={mobileOpen} handleDrawerToggle={handleDrawerToggle} />
         <main className={classes.content}>
-          <Route exact path='/' render={() => <Top loginState={loginState} />} />
-          <Route path='/typing' render={() => <TypingPage loginStatus={loginState} />} />
-          <Route path='/TextRegistration' render={() => <TextRegistration loginStatus={loginState} />} />
-          <Route path='/Login' render={() => <Login changeLoginState={changeLoginState} />} />
+          <Route exact path='/' render={() => <Top />} />
+          <Route path='/typing' render={() => <TypingPage />} />
+          <Route path='/TextRegistration' render={() => <TextRegistration />} />
+          <Route path='/Login' render={() => <Login />} />
           <Route path='/Signup' render={() => <Signup changeLoginState={changeLoginState} />} />
           <Route path='/contact' render={() => <Contact />} />
 
