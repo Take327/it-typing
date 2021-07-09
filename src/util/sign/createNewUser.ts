@@ -1,12 +1,9 @@
 import { app } from '../../config/firebase'
-import { login } from './login'
 import { createUserTexts } from './createUserTexts'
 
 export const createNewUser = async (email: string, password: string) => {
     try {
         await app.auth().createUserWithEmailAndPassword(email, password);
-        //const db = app.firestore().doc('')
-        await login(email, password)
         const uid = app.auth().currentUser?.uid;
         if (uid) {
             await createUserTexts(uid)

@@ -63,8 +63,7 @@ const theme = createMuiTheme({
 const Login: React.FC = () => {
     const dispatch = useDispatch()
     const history = useHistory()
-    const loginState = getUserLoginState(useSelector((state: State) => { return state }))
-
+    const select = useSelector((state: State) => { return state })
 
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
@@ -126,13 +125,15 @@ const Login: React.FC = () => {
         inputCheck(state);
     }, [state])
 
+    useEffect(() => {
+        if(getUserLoginState(select)){
+            history.push('/');
+        }
+    })
+
 
     const loginAction = (email: string, password: string) => {
-        dispatch(login(email, password))
-
-        if (loginState) {
-            history.push('/')
-        }
+        dispatch(login(email, password));
     };
 
     return (
