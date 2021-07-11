@@ -10,15 +10,20 @@ import { Link, useHistory } from 'react-router-dom'
 import { createNewUser } from '../../util/sign/createNewUser'
 import { ThemeProvider } from "@material-ui/styles";
 import { createMuiTheme } from "@material-ui/core/styles";
+import { useDispatch, useSelector } from 'react-redux'
+import { State } from '../../reducks/store/types'
+import { getUserLoginState } from '../../reducks/user/selectors'
+import { login } from '../../reducks/user/operations'
 
 
-type State = {
+
+type InputState = {
     emailCheck: boolean,
     passwordCheck: boolean,
     passwordconfirmCheck: boolean
 }
 
-const initialState: State = {
+const initialState: InputState = {
     emailCheck: true,
     passwordCheck: true,
     passwordconfirmCheck: true
@@ -60,18 +65,16 @@ const theme = createMuiTheme({
     }
 });
 
-type Props = {
-    changeLoginState: Function
-}
-
-const Signup: React.FC<Props> = ({ changeLoginState }) => {
+const Signup: React.FC = () => {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [passwordconfirm, setPasswordconfirm] = useState<string>('');
-    const [state, setStates] = useState<State>(initialState);
+    const [state, setStates] = useState<InputState>(initialState);
     const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(true);
 
     const history = useHistory()
+    const dispatch = useDispatch()
+    const select = useSelector((state: State) => { return state })
 
     const classes = useStyles();
 
@@ -92,7 +95,7 @@ const Signup: React.FC<Props> = ({ changeLoginState }) => {
     }
 
     const handleError = (e: React.FocusEvent<HTMLInputElement>) => {
-        let nowState: State = Object.assign({}, state);
+        let nowState: InputState = Object.assign({}, state);
 
         switch (e.target.id) {
             case 'email':
@@ -137,7 +140,7 @@ const Signup: React.FC<Props> = ({ changeLoginState }) => {
         setStates(nowState);
     }
 
-    const inputCheck = (state: State) => {
+    const inputCheck = (state: InputState) => {
         if (email !== '' && password !== '' && passwordconfirm !== '') {
             if (state.emailCheck && state.passwordCheck && state.passwordconfirmCheck) {
                 setIsButtonDisabled(false);
@@ -154,11 +157,16 @@ const Signup: React.FC<Props> = ({ changeLoginState }) => {
         inputCheck(state);
     }, [state])
 
+    useEffect(() => {
+        if(getUserLoginState(select)){
+            history.push('/');
+        }
+    })
+
     const signupAction = async (email: string, password: string) => {
         if (await createNewUser(email, password)) {
+            dispatch(login(email, password));
             alert('登録されました。');
-            changeLoginState(true);
-            history.push('/')
         }
     };
 

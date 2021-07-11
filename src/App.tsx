@@ -38,13 +38,6 @@ const App: React.FC = () => {
     setMobileOpen(!mobileOpen);
   };
 
-
-  const [loginState, setLoginState] = useState<boolean>(false);
-
-  const changeLoginState = (state: boolean) => {
-    setLoginState(state);
-  }
-
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -56,7 +49,7 @@ const App: React.FC = () => {
           <Route path='/typing' render={() => <TypingPage />} />
           <Route path='/TextRegistration' render={() => <TextRegistration />} />
           <Route path='/Login' render={() => <Login />} />
-          <Route path='/Signup' render={() => <Signup changeLoginState={changeLoginState} />} />
+          <Route path='/Signup' render={() => <Signup />} />
           <Route path='/contact' render={() => <Contact />} />
 
         </main>
